@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.example.subsense.core.ui.SubSenseTheme
 import com.example.subsense.home.presentation.view.screen.HomeScreen
-import com.example.subsense.core.theme.SubSenseTheme
 
 
 class MainActivity : ComponentActivity() {
