@@ -44,5 +44,5 @@ object ChartColors {
     val chart2 = Color(0xFF4CAF50)
     val chart3 = Color(0xFFFBC02D)
     val chart4 = Color(0xFFEF5350)
-    val chart5 = Color(0xFFFF9800)
+    val chart5 = Color(0xFFFF5722)
 }
