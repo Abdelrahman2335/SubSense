@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.subsense.core.model.Expense
 import com.example.subsense.core.model.ExpenseCategory
 import java.text.NumberFormat
 import java.util.Locale
@@ -29,21 +30,22 @@ import java.util.Locale
 
 @Composable
 fun ExpenseCard(
-    amount: Int,
-    category: ExpenseCategory,
-    note:String?
-){
+    expense: Expense,
+
+    ){
 
 
-    val formattedAmount = NumberFormat.getCurrencyInstance(Locale.US).format(amount) // Put it in the VM
-
+    val formattedAmount = NumberFormat.getCurrencyInstance(Locale.US).format(expense.amount) // Put it in the VM
+    val category = expense.category
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(0.4f)
             .shadow(elevation = 9.dp, shape = RoundedCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant)
-            .clip(RoundedCornerShape(16.dp)),
+            .clip(RoundedCornerShape(16.dp))
+            .padding(horizontal = 12.dp),
+
         verticalAlignment = Alignment.CenterVertically
 
 
@@ -63,7 +65,7 @@ fun ExpenseCard(
             )
         }
         Column {
-            Text(note ?: "" , style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
+            Text(expense.note ?: "" , style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
             Text("Today", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
         }
 

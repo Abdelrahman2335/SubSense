@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,7 +33,7 @@ fun AlertCard(
         modifier = Modifier
             .padding(top = 19.dp)
             .fillMaxWidth()
-            .fillMaxHeight(0.2f)
+            .heightIn(min = 72.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(color.copy(alpha = 0.2f)),
         contentAlignment = Alignment.CenterStart,

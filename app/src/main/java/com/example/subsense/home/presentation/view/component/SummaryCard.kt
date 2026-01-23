@@ -26,7 +26,7 @@ import java.text.NumberFormat
 import java.util.Locale
 
 @Composable
-fun SummaryCard(modifier: Modifier){
+fun SummaryCard(){
     val amount = 1234.50
     val amount2 = 1500
 
@@ -34,9 +34,10 @@ fun SummaryCard(modifier: Modifier){
     val formattedAmount2 = NumberFormat.getCurrencyInstance(Locale.US).format(amount2) // Put it in the VM
 
     Box(
-        modifier = modifier
+        modifier = Modifier
+            .padding(top = 19.dp)
             .fillMaxWidth()
-            .fillMaxHeight(0.3f)
+            .height(220.dp)
             .shadow(elevation = 9.dp, shape = RoundedCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .clip(RoundedCornerShape(16.dp))

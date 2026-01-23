@@ -7,7 +7,7 @@ data class Expense(
     val amount: Long, // cents
     val category: ExpenseCategory,
     val date:  Long, // timestamp
-    val note: String,
+    val note: String?,
     val isRecurring: Boolean,
     val recurringPattern: RecurringPattern?  // null if not recurring
 )

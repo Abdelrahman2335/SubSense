@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -32,41 +35,57 @@ import com.example.subsense.core.model.ExpenseCategory
 import com.example.subsense.core.ui.ChartColors
 import com.example.subsense.core.ui.LightColors.destructive
 import com.example.subsense.core.ui.LightColors.warningForeground
+import com.example.subsense.home.data.dummy_data.DummyData
 import java.text.NumberFormat
 import java.util.Locale
 
 
 @Composable
-fun HomeScreenBody(modifier: Modifier){
+fun HomeScreenBody(modifier: Modifier) {
+    val expenses = DummyData
 
-    Column(
+    LazyColumn(
+
         modifier
-        .fillMaxSize()
-        .padding(horizontal = 23.dp)) {
-        SummaryCard(modifier)
-        // Same box used twice, you should make it reusable
-        AlertCard(
-            imageVector = Icons.Outlined.WarningAmber,
-            contentDescription = "Warning",
-            color = warningForeground,
-            text = "Food budget: 85% used"
-        )
-        AlertCard(
-            imageVector = Icons.Outlined.ErrorOutline,
-            contentDescription = "Error",
-            color = destructive,
-            text = "Entertainment: Over budget by $23"
-        )
+            .fillMaxSize()
+            .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
 
-        Text(
-            "Recent Expenses", style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(vertical = 16.dp, horizontal = 3.dp)
-        )
-        ExpenseCard(
-            amount = 12,
-            category = ExpenseCategory.FoodDining,
-            note = "Lunch at Chipotle"
-        )
+    ) {
+        item {
+            SummaryCard()
+
+        }
+        item {
+            AlertCard(
+                imageVector = Icons.Outlined.WarningAmber,
+                contentDescription = "Warning",
+                color = warningForeground,
+                text = "Food budget: 85% used"
+            )
+        }
+        item {
+            AlertCard(
+                imageVector = Icons.Outlined.ErrorOutline,
+                contentDescription = "Error",
+                color = destructive,
+                text = "Entertainment: Over budget by $23"
+            )
+        }
+        item {
+            Text(
+                "Recent Expenses", style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(vertical = 16.dp, horizontal = 3.dp)
+            )
+        }
+
+        items(expenses, key = { it.id }) { expense ->
+            ExpenseCard(expense)
+        }
     }
+
+
+
+
 }
