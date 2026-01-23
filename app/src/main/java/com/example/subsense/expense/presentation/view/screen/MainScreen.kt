@@ -6,56 +6,37 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import com.example.subsense.expense.presentation.view.component.BottomNavigation
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.subsense.core.composes.CustomTopBar
+import com.example.subsense.core.ui.Constraints.TITLE_HOME
 import com.example.subsense.expense.presentation.view.component.HomeFloatingButton
 import com.example.subsense.expense.presentation.view.component.HomeScreenBody
-import com.example.subsense.expense.presentation.view.component.HomeTopBar
+import com.example.subsense.manage_expences.presentation.view.component.ManageExpenseBody
 
+@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
-    val navController = rememberNavController()
-    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
-
+    var navigate by remember { mutableStateOf(false) }
     Scaffold(
+
         containerColor = MaterialTheme.colorScheme.background,
-        topBar = { HomeTopBar() },
-        floatingActionButton = { HomeFloatingButton() },
-        bottomBar = {
-            BottomNavigation(
-                currentRoute = currentRoute,
-                onNavigate = { route ->
-                    navController.navigate(route) {
-                        popUpTo(navController.graph.startDestinationId) {
-                            saveState = true
-                        }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
-                }
-            )
-        },
+        topBar = { CustomTopBar(TITLE_HOME, onClick = {}) },
+        floatingActionButton = { HomeFloatingButton(onClick = { navigate = !navigate }) },
+        bottomBar = {},
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = "expense",
-            modifier = Modifier.padding(innerPadding)
-        ) {
-            composable("expense") {
-                HomeScreenBody(modifier = Modifier)
-            }
-            composable("debts") {
-                // your profile composable
-            }
-            composable("settings") {
-                // your settings composable
-            }
+        if (navigate) {
+            ManageExpenseBody(modifier = Modifier.padding(innerPadding))
+
+        } else {
+            HomeScreenBody(modifier = Modifier.padding(innerPadding))
+
         }
     }
 }

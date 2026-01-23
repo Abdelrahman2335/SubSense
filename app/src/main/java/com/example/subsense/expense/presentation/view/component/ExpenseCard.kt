@@ -33,9 +33,8 @@ fun ExpenseCard(
 
     ) {
 
-
     val formattedAmount =
-        NumberFormat.getCurrencyInstance(Locale.US).format(expense.amount) // Put it in the VM
+        NumberFormat.getCurrencyInstance(Locale.US).format(expense.amount / 100) // Put it in the VM
     val category = expense.category
     Row(
         modifier = Modifier
