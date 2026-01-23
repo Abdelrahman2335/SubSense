@@ -1,4 +1,4 @@
-package com.example.subsense.home.presentation.view.component
+package com.example.subsense.expense.presentation.view.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,12 +25,14 @@ import java.text.NumberFormat
 import java.util.Locale
 
 @Composable
-fun SummaryCard(){
+fun SummaryCard() {
     val amount = 1234.50
     val amount2 = 1500
 
-    val formattedAmount = NumberFormat.getCurrencyInstance(Locale.US).format(amount) // Put it in the VM
-    val formattedAmount2 = NumberFormat.getCurrencyInstance(Locale.US).format(amount2) // Put it in the VM
+    val formattedAmount =
+        NumberFormat.getCurrencyInstance(Locale.US).format(amount) // Put it in the VM
+    val formattedAmount2 =
+        NumberFormat.getCurrencyInstance(Locale.US).format(amount2) // Put it in the VM
 
     Box(
         modifier = Modifier
@@ -50,9 +51,17 @@ fun SummaryCard(){
 
         ) {
 
-            Text("Total Spent This Month", style = MaterialTheme.typography.titleMedium, color = mutedForeground)
+            Text(
+                "Total Spent This Month",
+                style = MaterialTheme.typography.titleMedium,
+                color = mutedForeground
+            )
             Spacer(Modifier.padding(bottom = 4.dp))
-            Text(formattedAmount, style = MaterialTheme.typography.displaySmall, fontWeight = FontWeight.Bold)
+            Text(
+                formattedAmount,
+                style = MaterialTheme.typography.displaySmall,
+                fontWeight = FontWeight.Bold
+            )
             Spacer(Modifier.padding(bottom = 13.dp))
             Row(
                 modifier = Modifier
@@ -60,8 +69,12 @@ fun SummaryCard(){
                 horizontalArrangement = Arrangement.SpaceBetween
 
 
-            ){
-                Text("Budget Usage", style = MaterialTheme.typography.bodyLarge, color = mutedForeground)
+            ) {
+                Text(
+                    "Budget Usage",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = mutedForeground
+                )
                 Text("82%", style = MaterialTheme.typography.bodyLarge, color = accent)
 
             }
@@ -75,7 +88,11 @@ fun SummaryCard(){
                     .height(9.dp)
             )
             Spacer(Modifier.padding(bottom = 8.dp))
-            Text("$formattedAmount of $formattedAmount2 budget" , style = MaterialTheme.typography.labelLarge, color = mutedForeground)
+            Text(
+                "$formattedAmount of $formattedAmount2 budget",
+                style = MaterialTheme.typography.labelLarge,
+                color = mutedForeground
+            )
 
 
         }

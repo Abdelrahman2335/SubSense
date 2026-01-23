@@ -1,4 +1,4 @@
-package com.example.subsense.home.presentation.view.component
+package com.example.subsense.expense.presentation.view.component
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons

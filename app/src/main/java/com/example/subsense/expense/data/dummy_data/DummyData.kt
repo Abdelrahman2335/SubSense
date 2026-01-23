@@ -1,4 +1,4 @@
-package com.example.subsense.home.data.dummy_data
+package com.example.subsense.expense.data.dummy_data
 
 import com.example.subsense.core.model.Expense
 import com.example.subsense.core.model.ExpenseCategory

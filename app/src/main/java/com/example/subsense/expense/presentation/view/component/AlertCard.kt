@@ -1,10 +1,9 @@
-package com.example.subsense.home.presentation.view.component
+package com.example.subsense.expense.presentation.view.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -20,7 +19,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.example.subsense.core.ui.LightColors.warning
 
 @Composable
 fun AlertCard(
@@ -28,7 +26,7 @@ fun AlertCard(
     contentDescription: String,
     color: Color,
     text: String,
-){
+) {
     Box(
         modifier = Modifier
             .padding(top = 19.dp)
@@ -54,7 +52,7 @@ fun AlertCard(
                 modifier = Modifier.size(21.dp)
             )
 
-            Text( text, style = MaterialTheme.typography.labelLarge, color = color)
+            Text(text, style = MaterialTheme.typography.labelLarge, color = color)
         }
 
     }

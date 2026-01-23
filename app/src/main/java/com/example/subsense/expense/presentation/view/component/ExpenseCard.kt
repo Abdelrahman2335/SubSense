@@ -1,4 +1,4 @@
-package com.example.subsense.home.presentation.view.component
+package com.example.subsense.expense.presentation.view.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -23,7 +23,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.subsense.core.model.Expense
-import com.example.subsense.core.model.ExpenseCategory
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -32,10 +31,11 @@ import java.util.Locale
 fun ExpenseCard(
     expense: Expense,
 
-    ){
+    ) {
 
 
-    val formattedAmount = NumberFormat.getCurrencyInstance(Locale.US).format(expense.amount) // Put it in the VM
+    val formattedAmount =
+        NumberFormat.getCurrencyInstance(Locale.US).format(expense.amount) // Put it in the VM
     val category = expense.category
     Row(
         modifier = Modifier
@@ -57,7 +57,7 @@ fun ExpenseCard(
                 .clip(CircleShape)
                 .background(category.color),
             contentAlignment = Alignment.Center
-        ){
+        ) {
             Icon(
                 imageVector = category.icon,
                 contentDescription = category.displayName,
@@ -65,8 +65,16 @@ fun ExpenseCard(
             )
         }
         Column {
-            Text(expense.note ?: "" , style = MaterialTheme.typography.bodyMedium, fontWeight = FontWeight.SemiBold)
-            Text("Today", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
+            Text(
+                expense.note ?: "",
+                style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.SemiBold
+            )
+            Text(
+                "Today",
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+            )
         }
 
         Spacer(modifier = Modifier.weight(1f))
