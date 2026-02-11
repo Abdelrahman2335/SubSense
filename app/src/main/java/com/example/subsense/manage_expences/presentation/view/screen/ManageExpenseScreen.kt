@@ -26,3 +26,8 @@ fun ManageExpenseScreen(
 
     }
 }
+
+@Composable
+fun ManageExpenseScreenPreview() {
+    return ManageExpenseScreen { }
+}

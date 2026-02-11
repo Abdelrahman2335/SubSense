@@ -1,6 +1,7 @@
 package com.example.subsense.manage_expences.presentation.view.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -62,19 +63,19 @@ fun CategorySelector() {
 
     ) {
 
-        Column {
+        Column(modifier = Modifier.padding(top = 16.dp, start = 22.dp, bottom = 4.dp)) {
 
             Text(
                 text = "Category",
                 color = mutedForeground,
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.bodyLarge,
-                modifier = Modifier.padding(top= 16.dp, start = 22.dp, bottom = 4.dp)
-            )
+
+                )
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+//                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 categories.forEach { category ->
                     Box(
@@ -82,7 +83,8 @@ fun CategorySelector() {
                             .padding(16.dp)
                             .size(44.dp)
                             .clip(CircleShape)
-                            .background(category.color),
+                            .background(category.color)
+                            .clickable {},
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(

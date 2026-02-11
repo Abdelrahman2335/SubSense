@@ -50,6 +50,7 @@ fun NavigationRoot(
                     NavEntry(
                         key = key,
                     ) {
+
                         ManageExpenseScreen(
                             onClick = { backStack.removeLastOrNull() }
                         )

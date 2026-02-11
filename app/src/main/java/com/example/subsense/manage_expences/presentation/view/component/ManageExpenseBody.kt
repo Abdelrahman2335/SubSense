@@ -1,8 +1,10 @@
 package com.example.subsense.manage_expences.presentation.view.component
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -26,11 +28,18 @@ fun ManageExpenseBody(modifier: Modifier) {
         }
         item {
             CustomField(
-                head = "Note",
-                text = "Add a note (optional)"
+                "Note",
+                "Add a note (optional)",
             )
         }
         item { RepeatExpense() }
+
+        item {
+            ElevatedButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = {}
+            ) { }
+        }
 
     }
 
