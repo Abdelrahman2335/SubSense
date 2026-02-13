@@ -6,7 +6,7 @@ import androidx.room.Upsert
 import com.example.subsense.core.model.Expense
 
 @Dao
-interface ManageExpensesRepo {
+interface ManageExpensesDao {
     @Upsert
     suspend fun upSertExpense(expense: Expense)
 
