@@ -2,65 +2,48 @@ package com.example.subsense.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation3.runtime.NavEntry
-import androidx.navigation3.runtime.NavKey
-import androidx.navigation3.runtime.rememberNavBackStack
-import androidx.navigation3.ui.NavDisplay
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.subsense.expense.presentation.view.screen.ExpensesScreen
 import com.example.subsense.manage_expences.presentation.view.screen.ManageExpenseScreen
 import kotlinx.serialization.Serializable
 
 
 @Serializable
-data object ExpenseScreen : NavKey
+data object ExpenseScreen
 
 @Serializable
-data object AddExpensesScreen : NavKey
+data object AddExpensesScreen
 
 @Serializable
-data class EditExpenseScreen(val id: String) : NavKey
+data class EditExpenseScreen(val id: String)
 
 @Composable
 fun NavigationRoot(
     modifier: Modifier
 ) {
 
-    val backStack = rememberNavBackStack(ExpenseScreen)
+    val navController = rememberNavController()
 
-    NavDisplay(
-        modifier = modifier,
-        backStack = backStack,
-
-        entryProvider = { key ->
-            when (key) {
-                is ExpenseScreen -> {
-                    NavEntry(
-                        key = key,
-                    ) {
-                        ExpensesScreen(
-                            onFABClick = {
-                                backStack.add(AddExpensesScreen)
-                            }
-                        )
-                    }
-
+    NavHost(
+        navController = navController,
+        startDestination = ExpenseScreen,
+        modifier = modifier
+    ) {
+        composable<ExpenseScreen> {
+            ExpensesScreen(
+                onFABClick = {
+                    navController.navigate(AddExpensesScreen)
                 }
-
-                is AddExpensesScreen -> {
-                    NavEntry(
-                        key = key,
-                    ) {
-
-                        ManageExpenseScreen(
-                            onClick = { backStack.removeLastOrNull() }
-                        )
-                    }
-                }
-
-                else -> throw RuntimeException("Invalid NavKey.")
-            }
+            )
         }
-    )
 
-
+        composable<AddExpensesScreen> {
+            ManageExpenseScreen(
+                onBack = { navController.popBackStack() }
+            )
+        }
+    }
 }

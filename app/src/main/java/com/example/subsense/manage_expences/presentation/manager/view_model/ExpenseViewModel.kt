@@ -6,13 +6,16 @@ import com.example.subsense.core.model.Expense
 import com.example.subsense.manage_expences.data.repository.ManageExpensesDao
 import com.example.subsense.manage_expences.presentation.manager.event.ExpenseEvent
 import com.example.subsense.manage_expences.presentation.manager.state.ExpenseState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ExpenseViewModel(
+@HiltViewModel
+class ExpenseViewModel @Inject constructor(
     private val dao: ManageExpensesDao
 ) : ViewModel() {
 

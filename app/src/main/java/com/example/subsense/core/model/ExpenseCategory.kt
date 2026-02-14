@@ -9,13 +9,12 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.LocalHospital
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Pets
+import androidx.compose.material.icons.outlined.Receipt
 import androidx.compose.material.icons.outlined.Restaurant
 import androidx.compose.material.icons.outlined.School
 import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material.icons.outlined.ShoppingCart
-import androidx.compose.material.icons.outlined.Smartphone
 import androidx.compose.material.icons.outlined.Spa
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.outlined.Subscriptions
 import androidx.compose.material.icons.outlined.TheaterComedy
 import androidx.compose.ui.graphics.Color
@@ -61,7 +60,7 @@ sealed class ExpenseCategory(
     data object BillsUtilities : ExpenseCategory(
         id = "bills_utilities",
         displayName = "Bills & Utilities",
-        icon = Icons.Outlined.Home,
+        icon = Icons.Outlined.Receipt,
         color = Color(0xFFFF5722) // Orange
     )
 

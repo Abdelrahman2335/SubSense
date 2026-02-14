@@ -17,10 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,10 +34,10 @@ import com.example.subsense.core.ui.LightColors.mutedForeground
 @Composable
 fun CustomField(
     head: String,
-    text: String,
-
-    ) {
-    var amount by remember { mutableStateOf("") }
+    placeholder: String,
+    onValueChange: (String) -> Unit,
+    value: String,
+) {
 
     Box(
         modifier = Modifier
@@ -91,9 +87,9 @@ fun CustomField(
                     modifier = Modifier.padding(start = 22.dp, bottom = 4.dp)
                 )
                 TextField(
-                    value = amount,
-                    onValueChange = { amount = it },
-                    placeholder = { Text(text, color = mutedForeground) },
+                    value = value,
+                    onValueChange = { onValueChange(value) },
+                    placeholder = { Text(placeholder, color = mutedForeground) },
                     leadingIcon = {
                         if (head == "Amount") {
                             Icon(

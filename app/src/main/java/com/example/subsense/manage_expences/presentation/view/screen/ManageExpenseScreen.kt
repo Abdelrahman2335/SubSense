@@ -12,22 +12,19 @@ import com.example.subsense.manage_expences.presentation.view.component.ManageEx
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ManageExpenseScreen(
-    onClick: () -> Unit
+    onBack: () -> Unit
 ) {
+
+
     Scaffold(
 
         topBar = {
             CustomTopBar(TITLE_ADD_EXPENSE, true) {
-                onClick()
+                onBack()
             }
         }
     ) { innerPadding ->
         ManageExpenseBody(modifier = Modifier.padding(innerPadding))
 
     }
-}
-
-@Composable
-fun ManageExpenseScreenPreview() {
-    return ManageExpenseScreen { }
 }

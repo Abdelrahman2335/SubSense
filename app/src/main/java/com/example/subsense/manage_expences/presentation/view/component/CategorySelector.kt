@@ -92,6 +92,7 @@ fun CategorySelector() {
                             contentDescription = category.displayName,
                             tint = Color.White,
                         )
+                
                     }
                 }
             }
