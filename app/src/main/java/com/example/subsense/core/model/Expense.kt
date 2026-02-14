@@ -10,7 +10,7 @@ data class Expense(
     val id: Long,
     val amount: Long, // cents
     val category: ExpenseCategory,
-    val date: Long, // timestamp
+    val date: Long = System.currentTimeMillis(), // timestamp in milliseconds
     val note: String?,
     val isRecurring: Boolean,
     val recurringPattern: RecurringPattern?  // null if not recurring

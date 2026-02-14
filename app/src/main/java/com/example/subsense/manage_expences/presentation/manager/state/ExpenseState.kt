@@ -9,10 +9,11 @@ data class ExpenseState(
         id = 0,
         amount = 0,
         category = ExpenseCategory.getAllCategories().first(),
-        date = 0,
+        date = System.currentTimeMillis(),
         note = null,
         isRecurring = false,
         recurringPattern = null
     ),
+    val categories: List<ExpenseCategory> = ExpenseCategory.getAllCategories(),
     val error: String? = null,
 )

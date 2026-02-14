@@ -13,6 +13,7 @@ class Converters {
         return category.id  // e.g., "food_dining"
     }
 
+
     @TypeConverter
     fun toExpenseCategory(id: String): ExpenseCategory {
         return ExpenseCategory.fromId(id) ?: ExpenseCategory.Other

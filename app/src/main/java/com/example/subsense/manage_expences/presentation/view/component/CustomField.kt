@@ -37,6 +37,7 @@ fun CustomField(
     placeholder: String,
     onValueChange: (String) -> Unit,
     value: String,
+    errorMessage: String?,
 ) {
 
     Box(
@@ -90,6 +91,13 @@ fun CustomField(
                     value = value,
                     onValueChange = { onValueChange(value) },
                     placeholder = { Text(placeholder, color = mutedForeground) },
+                    isError = errorMessage != null,
+                    supportingText = {
+
+                        if (errorMessage != null) {
+                            Text(errorMessage)
+                        }
+                    },
                     leadingIcon = {
                         if (head == "Amount") {
                             Icon(

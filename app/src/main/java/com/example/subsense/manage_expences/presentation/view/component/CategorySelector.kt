@@ -1,6 +1,7 @@
 package com.example.subsense.manage_expences.presentation.view.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,16 +28,20 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.subsense.core.model.ExpenseCategory
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.subsense.core.ui.LightColors.muted
 import com.example.subsense.core.ui.LightColors.mutedForeground
+import com.example.subsense.manage_expences.presentation.manager.event.ExpenseEvent
+import com.example.subsense.manage_expences.presentation.manager.view_model.ExpenseViewModel
 
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CategorySelector() {
-    val categories: List<ExpenseCategory> = ExpenseCategory.getAllCategories()
+fun CategorySelector(
+    viewModel: ExpenseViewModel
 
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(26.dp))
@@ -77,14 +83,25 @@ fun CategorySelector() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
 //                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                categories.forEach { category ->
+                state.categories.forEach { category ->
                     Box(
                         modifier = Modifier
                             .padding(16.dp)
                             .size(44.dp)
                             .clip(CircleShape)
                             .background(category.color)
-                            .clickable {},
+                            .clickable { viewModel.onEvent(ExpenseEvent.SetCategory(category)) }
+                            .then(
+                                if (state.expense.category == category) {
+                                    Modifier.border(
+                                        width = 3.dp,
+                                        color = MaterialTheme.colorScheme.primary,
+                                        shape = CircleShape
+                                    )
+                                } else {
+                                    Modifier
+                                }
+                            ),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
@@ -92,7 +109,6 @@ fun CategorySelector() {
                             contentDescription = category.displayName,
                             tint = Color.White,
                         )
-                
                     }
                 }
             }
