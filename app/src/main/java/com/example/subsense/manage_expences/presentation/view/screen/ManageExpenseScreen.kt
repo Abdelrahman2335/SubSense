@@ -24,7 +24,7 @@ fun ManageExpenseScreen(
             }
         }
     ) { innerPadding ->
-        ManageExpenseBody(modifier = Modifier.padding(innerPadding))
+        ManageExpenseBody(modifier = Modifier.padding(innerPadding), onBack = onBack)
 
     }
 }

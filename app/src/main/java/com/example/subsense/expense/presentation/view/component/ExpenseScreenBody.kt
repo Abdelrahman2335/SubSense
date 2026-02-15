@@ -11,17 +11,23 @@ import androidx.compose.material.icons.outlined.WarningAmber
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.subsense.core.ui.LightColors.destructive
 import com.example.subsense.core.ui.LightColors.warningForeground
-import com.example.subsense.expense.data.dummy_data.DummyData
+import com.example.subsense.expense.presentation.manager.view_model.ExpenseViewModel
 
 
 @Composable
-fun HomeScreenBody(modifier: Modifier) {
-    val expenses = DummyData
+fun HomeScreenBody(
+    viewModel: ExpenseViewModel = hiltViewModel<ExpenseViewModel>(),
+    modifier: Modifier
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     LazyColumn(
 
@@ -59,7 +65,7 @@ fun HomeScreenBody(modifier: Modifier) {
             )
         }
 
-        items(expenses, key = { it.id }) { expense ->
+        items(state.expenses, key = { it.id }) { expense ->
             ExpenseCard(expense)
         }
     }

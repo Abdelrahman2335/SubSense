@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class RecurringPattern(
     val frequency: Frequency, // DAILY, WEEKLY, MONTHLY
     val interval: Int, // every X days/weeks/months
-    val endDate: Long?  // null = indefinite
+    val endDate: Long? = null // null = indefinite
 )

@@ -31,14 +31,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.subsense.core.ui.LightColors.muted
 import com.example.subsense.core.ui.LightColors.mutedForeground
-import com.example.subsense.manage_expences.presentation.manager.event.ExpenseEvent
-import com.example.subsense.manage_expences.presentation.manager.view_model.ExpenseViewModel
+import com.example.subsense.manage_expences.presentation.manager.event.ManageExpenseEvent
+import com.example.subsense.manage_expences.presentation.manager.view_model.ManageExpenseViewModel
 
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CategorySelector(
-    viewModel: ExpenseViewModel
+    viewModel: ManageExpenseViewModel
 
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -90,7 +90,7 @@ fun CategorySelector(
                             .size(44.dp)
                             .clip(CircleShape)
                             .background(category.color)
-                            .clickable { viewModel.onEvent(ExpenseEvent.SetCategory(category)) }
+                            .clickable { viewModel.onEvent(ManageExpenseEvent.SetCategory(category)) }
                             .then(
                                 if (state.expense.category == category) {
                                     Modifier.border(

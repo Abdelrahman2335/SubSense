@@ -3,11 +3,11 @@ package com.example.subsense.manage_expences.presentation.manager.state
 import com.example.subsense.core.model.Expense
 import com.example.subsense.core.model.ExpenseCategory
 
-data class ExpenseState(
+data class ManageExpenseState(
 
     val expense: Expense = Expense(
         id = 0,
-        amount = 0,
+        amount = null,
         category = ExpenseCategory.getAllCategories().first(),
         date = System.currentTimeMillis(),
         note = null,
@@ -15,5 +15,7 @@ data class ExpenseState(
         recurringPattern = null
     ),
     val categories: List<ExpenseCategory> = ExpenseCategory.getAllCategories(),
-    val error: String? = null,
+    val amountError: String? = null,
+    val intervalError: String? = null,
+    val isSaved: Boolean = false,
 )

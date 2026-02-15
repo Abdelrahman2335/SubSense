@@ -23,8 +23,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.subsense.core.model.Expense
-import java.text.NumberFormat
-import java.util.Locale
 
 
 @Composable
@@ -33,8 +31,7 @@ fun ExpenseCard(
 
     ) {
 
-    val formattedAmount =
-        NumberFormat.getCurrencyInstance(Locale.US).format(expense.amount / 100) // Put it in the VM
+
     val category = expense.category
     Row(
         modifier = Modifier
@@ -79,7 +76,7 @@ fun ExpenseCard(
         Spacer(modifier = Modifier.weight(1f))
 
         Text(
-            formattedAmount,
+            expense.amount.toString(),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
 

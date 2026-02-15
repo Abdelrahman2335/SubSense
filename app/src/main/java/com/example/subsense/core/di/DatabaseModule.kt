@@ -3,7 +3,8 @@ package com.example.subsense.core.di
 import android.content.Context
 import androidx.room.Room
 import com.example.subsense.core.model.ExpensesDatabase
-import com.example.subsense.manage_expences.data.repository.ManageExpensesDao
+import com.example.subsense.expense.data.dao.ExpenseDao
+import com.example.subsense.manage_expences.data.dao.ManageExpensesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,6 +34,14 @@ object DatabaseModule {
     fun provideManageExpensesDao(
         database: ExpensesDatabase
     ): ManageExpensesDao {
-        return database.dao
+        return database.manageExpensesDao
+    }
+
+    @Provides
+    @Singleton
+    fun provideExpenseDao(
+        database: ExpensesDatabase
+    ): ExpenseDao {
+        return database.expenseDao
     }
 }

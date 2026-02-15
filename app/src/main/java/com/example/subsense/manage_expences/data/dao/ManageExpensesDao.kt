@@ -1,4 +1,4 @@
-package com.example.subsense.manage_expences.data.repository
+package com.example.subsense.manage_expences.data.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
