@@ -1,49 +1,55 @@
 package com.example.subsense.navigation
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBalanceWallet
+import androidx.compose.material.icons.filled.Handshake
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
-import com.example.subsense.expense.presentation.view.screen.ExpensesScreen
-import com.example.subsense.manage_expences.presentation.view.screen.ManageExpenseScreen
-import kotlinx.serialization.Serializable
-
-
-@Serializable
-data object ExpenseScreen
-
-@Serializable
-data object AddExpensesScreen
-
-@Serializable
-data class EditExpenseScreen(val id: String)
 
 @Composable
 fun NavigationRoot(
-    modifier: Modifier
 ) {
-
     val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
-    NavHost(
-        navController = navController,
-        startDestination = ExpenseScreen,
-        modifier = modifier
-    ) {
-        composable<ExpenseScreen> {
-            ExpensesScreen(
-                onFABClick = {
-                    navController.navigate(AddExpensesScreen)
-                }
-            )
-        }
+    Scaffold(
+        bottomBar = {
+            NavigationBar {
+                NavigationBarItem(
+                    selected = currentRoute?.contains("ExpenseScreen") == true,
+                    onClick = {
+                        navController.navigate(ExpenseScreen) {
 
-        composable<AddExpensesScreen> {
-            ManageExpenseScreen(
-                onBack = { navController.popBackStack() }
-            )
+                            popUpTo(ExpenseScreen) { inclusive = true }
+                            launchSingleTop = true
+
+                        }
+                    },
+                    icon = { Icon(Icons.Default.AccountBalanceWallet, contentDescription = null) },
+                    label = { Text("Expenses") }
+                )
+                NavigationBarItem(
+                    selected = false, // TODO: Add BudgetScreen route
+                    onClick = { /* Navigate to budget */ },
+                    icon = { Icon(Icons.Default.Handshake, contentDescription = null) },
+                    label = { Text("Budget") }
+                )
+            }
         }
+    ) { paddingValues ->
+        NavigationGraph(
+            navController = navController,
+            modifier = Modifier.padding(paddingValues)
+        )
     }
 }

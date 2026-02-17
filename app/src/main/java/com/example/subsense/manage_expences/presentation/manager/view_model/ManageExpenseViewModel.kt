@@ -8,7 +8,6 @@ import com.example.subsense.manage_expences.data.repository.ManageExpenseRepo
 import com.example.subsense.manage_expences.presentation.manager.event.ManageExpenseEvent
 import com.example.subsense.manage_expences.presentation.manager.state.ManageExpenseState
 import com.example.subsense.setting.data.model.Frequency
-import com.example.subsense.setting.data.model.RecurringPattern
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -74,11 +73,8 @@ class ManageExpenseViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         expense = it.expense.copy(
-                            isRecurring = event.recurring, recurringPattern = RecurringPattern(
-                                frequency = Frequency.Daily,
-                                interval = 1,
-
-                                )
+                            isRecurring = event.recurring,
+                            recurringPattern = it.expense.recurringPattern?.copy(frequency = Frequency.Daily)
                         )
                     )
                 }
