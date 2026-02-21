@@ -16,14 +16,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.subsense.core.ui.LightColors.accent
 import com.example.subsense.core.ui.LightColors.destructive
-import com.example.subsense.debits.data.model.DebtModel
-import getDummyDebtData
+import com.example.subsense.debits.data.model.DebtType
+import com.example.subsense.debits.data.model.getDummyDebtData
 
 @Composable
-fun DebitScreenBody(
+fun DebtScreenBody(
     modifier: Modifier
 ) {
     val data = getDummyDebtData()
+    val moneyLent = data.filter { it.debtType == DebtType.LENT }
+    val moneyBorrowed = data.filter { it.debtType == DebtType.BORROWED }
     LazyColumn(
         modifier
             .fillMaxSize()
@@ -36,30 +38,24 @@ fun DebitScreenBody(
         }
         item {
             Text(
-                "Money I Lent", style = MaterialTheme.typography.titleMedium,
+                "Money Lent", style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = accent,
                 modifier = Modifier.padding(vertical = 16.dp, horizontal = 3.dp)
             )
         }
-        items(data) { DebtItem(it) }
+        items(moneyLent) { DebtItem(it) }
         item {
             Text(
-                "Money I Borrowed", style = MaterialTheme.typography.titleMedium,
+                "Money Borrowed", style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = destructive,
                 modifier = Modifier.padding(vertical = 16.dp, horizontal = 3.dp)
             )
             // List of debits
         }
+        items(moneyBorrowed) { DebtItem(it) }
+
 
     }
-}
-
-@Composable
-fun DebtItem(
-    debtModel: DebtModel
-) {
-    // Ui component
-
 }
