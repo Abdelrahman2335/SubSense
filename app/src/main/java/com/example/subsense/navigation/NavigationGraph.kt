@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.example.subsense.debits.presentation.view.screen.DebtScreen
 import com.example.subsense.expense.presentation.view.screen.ExpensesScreen
 import com.example.subsense.manage_expences.presentation.view.screen.ManageExpenseScreen
 import kotlinx.serialization.Serializable
@@ -13,6 +13,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data object ExpenseScreen
+
+@Serializable
+data object DebtScreen
 
 @Serializable
 data object AddExpensesScreen
@@ -27,7 +30,7 @@ fun NavigationGraph(
     modifier: Modifier
 ) {
 
-    val navController = rememberNavController()
+    val navController = navController
 
     NavHost(
         navController = navController,
@@ -40,6 +43,10 @@ fun NavigationGraph(
                     navController.navigate(AddExpensesScreen)
                 }
             )
+        }
+
+        composable<DebtScreen> {
+            DebtScreen(onFABClick = {})
         }
 
         composable<AddExpensesScreen> {

@@ -12,12 +12,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.subsense.core.composes.CustomFloatingButton
 import com.example.subsense.core.composes.CustomTopBar
 import com.example.subsense.core.ui.Constraints.TITLE_DEBIT
-import com.example.subsense.debits.presentation.view.component.DebitScreenBody
-
+import com.example.subsense.debits.presentation.view.component.DebtScreenBody
 
 
 @Composable
-fun DebitScreen(
+fun DebtScreen(
     onFABClick: () -> Unit,
 
     ) {
@@ -35,7 +34,7 @@ fun DebitScreen(
         bottomBar = {},
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
-        DebitScreenBody(modifier = Modifier.padding(innerPadding))
+        DebtScreenBody(modifier = Modifier.padding(innerPadding))
     }
 
 
@@ -43,6 +42,6 @@ fun DebitScreen(
 
 @Preview
 @Composable
-fun PreviewDebitScreen(){
-    DebitScreen {  }
+fun PreviewDebtScreen() {
+    DebtScreen { }
 }

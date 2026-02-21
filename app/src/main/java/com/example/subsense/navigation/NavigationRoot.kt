@@ -39,10 +39,17 @@ fun NavigationRoot(
                     label = { Text("Expenses") }
                 )
                 NavigationBarItem(
-                    selected = false, // TODO: Add BudgetScreen route
-                    onClick = { /* Navigate to budget */ },
+                    selected = currentRoute?.contains("DebitScreen") == true,
+                    onClick = {
+                        navController.navigate(DebtScreen) {
+
+                            popUpTo(ExpenseScreen) { inclusive = true }
+                            launchSingleTop = true
+
+                        }
+                    },
                     icon = { Icon(Icons.Default.Handshake, contentDescription = null) },
-                    label = { Text("Budget") }
+                    label = { Text("Debt") }
                 )
             }
         }
