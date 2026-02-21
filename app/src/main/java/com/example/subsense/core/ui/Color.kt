@@ -39,10 +39,3 @@ object LightColors {
     val ring = Color(0xFF2196F3)
 }
 
-object ChartColors {
-    val chart1 = Color(0xFF2196F3)
-    val chart2 = Color(0xFF4CAF50)
-    val chart3 = Color(0xFFFBC02D)
-    val chart4 = Color(0xFFEF5350)
-    val chart5 = Color(0xFFFF5722)
-}
