@@ -9,11 +9,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,15 +23,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.subsense.core.ui.LightColors.muted
-import com.example.subsense.core.ui.LightColors.mutedForeground
 import com.example.subsense.manage_expences.presentation.manager.event.ManageExpenseEvent
 import com.example.subsense.manage_expences.presentation.manager.view_model.ManageExpenseViewModel
 
@@ -42,39 +38,23 @@ fun CategorySelector(
 
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    Box(
+    Card(
         modifier = Modifier
-            .clip(RoundedCornerShape(26.dp))
-
-            .background(muted)
-            .drawBehind {
-                drawRect(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color.Transparent,
-                            Color.Black.copy(alpha = 0.3f)
-                        ),
-                        startY = size.height,
-                        endY = size.height + 16.dp.toPx()
-
-                    ),
-                    topLeft = Offset(0f, size.height),
-                    size = size.copy(height = 16.dp.toPx())
-                )
-            }
-            .fillMaxWidth()
-            .heightIn(min = 230.dp),
-
-        contentAlignment = Alignment.Center
-
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
     ) {
-
-        Column(modifier = Modifier.padding(top = 16.dp, start = 22.dp, bottom = 4.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+        ) {
 
             Text(
                 text = "Category",
-                color = mutedForeground,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.SemiBold,
                 style = MaterialTheme.typography.bodyLarge,
 
                 )
@@ -110,6 +90,7 @@ fun CategorySelector(
                             tint = Color.White,
                         )
                     }
+
                 }
             }
         }

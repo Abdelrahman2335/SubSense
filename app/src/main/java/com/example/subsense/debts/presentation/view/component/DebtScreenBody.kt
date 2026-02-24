@@ -1,4 +1,4 @@
-package com.example.subsense.debits.presentation.view.component
+package com.example.subsense.debts.presentation.view.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,8 +16,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.subsense.core.ui.LightColors.accent
 import com.example.subsense.core.ui.LightColors.destructive
-import com.example.subsense.debits.data.model.DebtType
-import com.example.subsense.debits.data.model.getDummyDebtData
+import com.example.subsense.debts.data.model.DebtType
+import com.example.subsense.debts.data.model.getDummyDebtData
 
 @Composable
 fun DebtScreenBody(

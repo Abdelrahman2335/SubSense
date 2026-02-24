@@ -14,6 +14,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.subsense.core.ui.Constraints.DEBT_SCREEN
+import com.example.subsense.core.ui.Constraints.EXPENSE_SCREEN
 
 @Composable
 fun NavigationRoot(
@@ -26,7 +28,7 @@ fun NavigationRoot(
         bottomBar = {
             NavigationBar {
                 NavigationBarItem(
-                    selected = currentRoute?.contains("ExpenseScreen") == true,
+                    selected = currentRoute?.contains(EXPENSE_SCREEN) == true,
                     onClick = {
                         navController.navigate(ExpenseScreen) {
 
@@ -39,7 +41,7 @@ fun NavigationRoot(
                     label = { Text("Expenses") }
                 )
                 NavigationBarItem(
-                    selected = currentRoute?.contains("DebitScreen") == true,
+                    selected = currentRoute?.contains(DEBT_SCREEN) == true,
                     onClick = {
                         navController.navigate(DebtScreen) {
 

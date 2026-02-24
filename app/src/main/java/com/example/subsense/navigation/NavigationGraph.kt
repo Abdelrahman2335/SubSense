@@ -5,8 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.subsense.debits.presentation.view.screen.DebtScreen
+import com.example.subsense.debts.presentation.view.screen.DebtScreen
 import com.example.subsense.expense.presentation.view.screen.ExpensesScreen
+import com.example.subsense.manage_debts.presentation.view.screen.ManageDebtsScreen
 import com.example.subsense.manage_expences.presentation.view.screen.ManageExpenseScreen
 import kotlinx.serialization.Serializable
 
@@ -18,10 +19,13 @@ data object ExpenseScreen
 data object DebtScreen
 
 @Serializable
-data object AddExpensesScreen
+data object ManageDebtScreen
 
 @Serializable
-data class EditExpenseScreen(val id: String)
+data object ManageExpensesScreen
+
+@Serializable
+data class EditExpenseScreen(val id: String) // will be removed later
 
 @Composable
 fun NavigationGraph(
@@ -40,17 +44,24 @@ fun NavigationGraph(
         composable<ExpenseScreen> {
             ExpensesScreen(
                 onFABClick = {
-                    navController.navigate(AddExpensesScreen)
+                    navController.navigate(ManageExpensesScreen)
                 }
             )
         }
 
         composable<DebtScreen> {
-            DebtScreen(onFABClick = {})
+            DebtScreen(onFABClick = {
+                navController.navigate(ManageDebtScreen)
+            })
         }
 
-        composable<AddExpensesScreen> {
+        composable<ManageExpensesScreen> {
             ManageExpenseScreen(
+                onBack = { navController.popBackStack() }
+            )
+        }
+        composable<ManageDebtScreen> {
+            ManageDebtsScreen(
                 onBack = { navController.popBackStack() }
             )
         }

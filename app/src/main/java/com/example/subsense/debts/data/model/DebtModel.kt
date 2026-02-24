@@ -1,4 +1,4 @@
-package com.example.subsense.debits.data.model
+package com.example.subsense.debts.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

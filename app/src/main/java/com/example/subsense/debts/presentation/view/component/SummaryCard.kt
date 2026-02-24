@@ -1,4 +1,4 @@
-package com.example.subsense.debits.presentation.view.component
+package com.example.subsense.debts.presentation.view.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

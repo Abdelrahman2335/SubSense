@@ -1,4 +1,4 @@
-package com.example.subsense.debits.presentation.view.component
+package com.example.subsense.debts.presentation.view.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +21,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.subsense.core.util.toDateString
-import com.example.subsense.debits.data.model.DebtModel
+import com.example.subsense.debts.data.model.DebtModel
 
 
 @Composable

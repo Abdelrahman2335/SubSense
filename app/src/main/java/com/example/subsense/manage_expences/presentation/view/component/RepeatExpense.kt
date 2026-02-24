@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Switch
@@ -18,10 +20,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.subsense.core.ui.LightColors.muted
 import com.example.subsense.core.ui.LightColors.mutedForeground
 import com.example.subsense.manage_expences.presentation.manager.event.ManageExpenseEvent
 import com.example.subsense.manage_expences.presentation.manager.state.ManageExpenseState
@@ -34,97 +34,101 @@ fun RepeatExpense(
 ) {
 
 
-    Column(
+    Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(26.dp))
-            .background(muted)
-            .padding(14.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-
-        ) {
-        Row(
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
+    ) {
+        Column(
             modifier = Modifier
-                .fillMaxSize(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .padding(vertical = 26.dp, horizontal = 16.dp)
         ) {
-
-            Text(
-                "Repeat this expense",
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.Bold
-            )
-
-
-            Switch(
-                checked = state.expense.isRecurring,
-                onCheckedChange = { onEvent(ManageExpenseEvent.SetRecurring(it)) }
-            )
-
-        }
-        if (state.expense.isRecurring) {
-            Box(
+            Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 51.dp, vertical = 4.dp)
-                    .height(2.dp)
-                    .background(mutedForeground.copy(alpha = 0.3f))
-            )
+                    .fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
 
-            Text(
-                "Pattern",
-                style = MaterialTheme.typography.titleSmall,
-                color = mutedForeground
-            )
-            Row {
-                for (frequency in Frequency.entries) {
-                    OutlinedButton(
+                Text(
+                    "Repeat this expense",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold
+                )
 
-                        modifier = Modifier
 
-                            .padding(4.dp),
-                        colors =
-                            if (state.expense.recurringPattern?.frequency == frequency)
-                                ButtonColors(
-
-                                    containerColor = MaterialTheme.colorScheme.primary,
-                                    contentColor = MaterialTheme.colorScheme.surface,
-                                    disabledContainerColor = mutedForeground,
-                                    disabledContentColor = mutedForeground
-                                ) else ButtonColors(
-
-                                containerColor = MaterialTheme.colorScheme.surface,
-                                contentColor = MaterialTheme.colorScheme.primary,
-                                disabledContainerColor = mutedForeground,
-                                disabledContentColor = mutedForeground
-                            ),
-                        onClick = {
-                            onEvent(
-                                ManageExpenseEvent.SetFrequency(
-                                    frequency = frequency,
-                                )
-                            )
-
-                        },
-
-                        ) {
-                        Text(frequency.name)
-                    }
-                }
+                Switch(
+                    checked = state.expense.isRecurring,
+                    onCheckedChange = { onEvent(ManageExpenseEvent.SetRecurring(it)) }
+                )
 
             }
-            CounterTextField(
-                value = state.expense.recurringPattern!!.interval.toString(),
-                onValueChange = { value ->
-                    onEvent(
-                        ManageExpenseEvent.SetInterval(value)
-                    )
-                },
-                errorMessage = state.amountError
-            )
-        }
+            if (state.expense.isRecurring) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 51.dp, vertical = 4.dp)
+                        .height(2.dp)
+                        .background(mutedForeground.copy(alpha = 0.3f))
+                )
 
+                Text(
+                    "Pattern",
+                    style = MaterialTheme.typography.titleSmall,
+                    color = mutedForeground
+                )
+                Row {
+                    for (frequency in Frequency.entries) {
+                        OutlinedButton(
+
+                            modifier = Modifier
+
+                                .padding(4.dp),
+                            colors =
+                                if (state.expense.recurringPattern?.frequency == frequency)
+                                    ButtonColors(
+
+                                        containerColor = MaterialTheme.colorScheme.primary,
+                                        contentColor = MaterialTheme.colorScheme.surface,
+                                        disabledContainerColor = mutedForeground,
+                                        disabledContentColor = mutedForeground
+                                    ) else ButtonColors(
+
+                                    containerColor = MaterialTheme.colorScheme.surface,
+                                    contentColor = MaterialTheme.colorScheme.primary,
+                                    disabledContainerColor = mutedForeground,
+                                    disabledContentColor = mutedForeground
+                                ),
+                            onClick = {
+                                onEvent(
+                                    ManageExpenseEvent.SetFrequency(
+                                        frequency = frequency,
+                                    )
+                                )
+
+                            },
+
+                            ) {
+                            Text(frequency.name)
+                        }
+                    }
+
+                }
+                CounterTextField(
+                    value = state.expense.recurringPattern!!.interval.toString(),
+                    onValueChange = { value ->
+                        onEvent(
+                            ManageExpenseEvent.SetInterval(value)
+                        )
+                    },
+                    errorMessage = state.amountError
+                )
+            }
+        }
 
     }
 }

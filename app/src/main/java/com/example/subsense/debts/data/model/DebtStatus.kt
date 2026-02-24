@@ -1,4 +1,4 @@
-package com.example.subsense.debits.data.model
+package com.example.subsense.debts.data.model
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccessTime
