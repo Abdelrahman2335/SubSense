@@ -1,7 +1,6 @@
 package com.example.subsense.expense.presentation.view.screen
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -34,7 +33,7 @@ fun ExpensesScreen(
         bottomBar = {},
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
-        HomeScreenBody(modifier = Modifier.padding(innerPadding))
+        HomeScreenBody(innerPadding = innerPadding)
 
     }
 }

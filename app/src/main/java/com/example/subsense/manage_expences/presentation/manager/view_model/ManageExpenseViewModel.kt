@@ -8,6 +8,7 @@ import com.example.subsense.manage_expences.data.repository.ManageExpenseRepo
 import com.example.subsense.manage_expences.presentation.manager.event.ManageExpenseEvent
 import com.example.subsense.manage_expences.presentation.manager.state.ManageExpenseState
 import com.example.subsense.setting.data.model.Frequency
+import com.example.subsense.setting.data.model.RecurringPattern
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -74,10 +75,18 @@ class ManageExpenseViewModel @Inject constructor(
                     it.copy(
                         expense = it.expense.copy(
                             isRecurring = event.recurring,
-                            recurringPattern = it.expense.recurringPattern?.copy(frequency = Frequency.Daily)
+                            recurringPattern = RecurringPattern(
+                                frequency = Frequency.Daily,
+                                interval = 1,
+
+                                )
                         )
                     )
                 }
+                Log.d(
+                    TAG,
+                    "📍 Event: SetRecurring | isRecurring=${_state.value.expense.isRecurring}| recurringPattern=${_state.value.expense.recurringPattern}"
+                )
             }
 
             is ManageExpenseEvent.SetFrequency -> {
@@ -85,10 +94,33 @@ class ManageExpenseViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         expense = it.expense.copy(
-                            recurringPattern = it.expense.recurringPattern!!.copy(
-                                frequency = event.frequency!!
+                            recurringPattern = it.expense.recurringPattern?.copy(
+                                frequency = event.frequency,
                             )
                         )
+                    )
+                }
+            }
+
+            is ManageExpenseEvent.SetInterval -> {
+                Log.d(TAG, "📍 Event: SetInterval | interval=${event.interval}")
+                val parsedInterval = event.interval.toIntOrNull()
+
+                if (parsedInterval == null) {
+                    Log.w(TAG, "❌ Invalid interval: ${event.interval}")
+                    _state.update { it.copy(intervalError = "Interval must be at least 1") }
+                    return
+                }
+
+                Log.d(TAG, "✅ Valid interval: $parsedInterval")
+                _state.update {
+                    it.copy(
+                        expense = it.expense.copy(
+                            recurringPattern = it.expense.recurringPattern?.copy(
+                                interval = parsedInterval
+                            )
+                        ),
+                        intervalError = null // Clear error on valid input
                     )
                 }
             }
@@ -101,28 +133,7 @@ class ManageExpenseViewModel @Inject constructor(
                 deleteExpense(event.expense)
             }
 
-            is ManageExpenseEvent.SetInterval -> {
-                Log.d(TAG, "📍 Event: SetInterval | interval=${event.interval}")
-                val parsedInterval = event.interval.toIntOrNull()
 
-                if (parsedInterval == null || parsedInterval < 1) {
-                    Log.w(TAG, "❌ Invalid interval: ${event.interval}")
-                    _state.update { it.copy(intervalError = "Interval must be at least 1") }
-                    return
-                }
-
-                Log.d(TAG, "✅ Valid interval: $parsedInterval")
-                _state.update {
-                    it.copy(
-                        expense = it.expense.copy(
-                            recurringPattern = it.expense.recurringPattern!!.copy(
-                                interval = parsedInterval
-                            )
-                        ),
-                        intervalError = null // Clear error on valid input
-                    )
-                }
-            }
         }
     }
 
@@ -173,16 +184,19 @@ class ManageExpenseViewModel @Inject constructor(
         if (validationError != null) {
             Log.e(TAG, "❌ Validation Failed: $validationError")
 
-            // Set appropriate error based on validation failure
-            if (validationError.contains("interval", ignoreCase = true) ||
-                validationError.contains("pattern", ignoreCase = true)
-            ) {
-                _state.update { it.copy(intervalError = validationError, amountError = null) }
-            } else {
+
+            if (validationError.contains("Amount")) {
                 _state.update { it.copy(amountError = validationError, intervalError = null) }
+                return
             }
-            return
+            if (validationError.contains("interval")) {
+
+                _state.update { it.copy(intervalError = validationError, amountError = null) }
+                return
+            }
+
         }
+
 
         Log.d(TAG, "✅ Validation Passed")
 
@@ -215,15 +229,6 @@ class ManageExpenseViewModel @Inject constructor(
         // Validate date
         if (expense.date <= 0) {
             return "Valid date is required"
-        }
-
-        // Validate recurring pattern if expense is recurring
-        if (expense.isRecurring) {
-            val pattern = expense.recurringPattern
-                ?: return "Recurring pattern is required for recurring expenses"
-            if (pattern.interval < 1) {
-                return "Recurring interval must be at least 1"
-            }
         }
 
         // All validations passed

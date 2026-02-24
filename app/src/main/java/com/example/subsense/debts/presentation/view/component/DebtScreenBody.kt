@@ -1,6 +1,7 @@
 package com.example.subsense.debts.presentation.view.component
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,17 +22,19 @@ import com.example.subsense.debts.data.model.getDummyDebtData
 
 @Composable
 fun DebtScreenBody(
-    modifier: Modifier
+    innerPadding: PaddingValues
 ) {
     val data = getDummyDebtData()
     val moneyLent = data.filter { it.debtType == DebtType.LENT }
     val moneyBorrowed = data.filter { it.debtType == DebtType.BORROWED }
     LazyColumn(
-        modifier
+        Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        contentPadding = innerPadding,
+
+        ) {
         item {
             SummaryCard("Money You Lent", Icons.AutoMirrored.Filled.TrendingUp, accent)
             SummaryCard("Money You Borrowed", Icons.AutoMirrored.Filled.TrendingDown, destructive)

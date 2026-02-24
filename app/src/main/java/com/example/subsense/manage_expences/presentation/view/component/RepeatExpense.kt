@@ -112,20 +112,18 @@ fun RepeatExpense(
 
                             },
 
-                            ) {
-                            Text(frequency.name)
-                        }
+                            )
+                        { Text(frequency.name) }
                     }
 
                 }
                 CounterTextField(
-                    value = state.expense.recurringPattern!!.interval.toString(),
+                    value = state.expense.recurringPattern?.interval.toString(),
                     onValueChange = { value ->
                         onEvent(
                             ManageExpenseEvent.SetInterval(value)
                         )
                     },
-                    errorMessage = state.amountError
                 )
             }
         }

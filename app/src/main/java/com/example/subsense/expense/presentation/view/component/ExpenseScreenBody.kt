@@ -1,6 +1,7 @@
 package com.example.subsense.expense.presentation.view.component
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,18 +26,18 @@ import com.example.subsense.expense.presentation.manager.view_model.ExpenseViewM
 @Composable
 fun HomeScreenBody(
     viewModel: ExpenseViewModel = hiltViewModel<ExpenseViewModel>(),
-    modifier: Modifier
+    innerPadding: PaddingValues
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LazyColumn(
-
-        modifier
+        modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        contentPadding = innerPadding,
 
-    ) {
+        ) {
         item {
             SummaryCard()
 

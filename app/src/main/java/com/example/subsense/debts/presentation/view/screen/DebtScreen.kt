@@ -1,7 +1,6 @@
 package com.example.subsense.debts.presentation.view.screen
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material3.MaterialTheme
@@ -33,7 +32,7 @@ fun DebtScreen(
         bottomBar = {},
         modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
-        DebtScreenBody(modifier = Modifier.padding(innerPadding))
+        DebtScreenBody(innerPadding = innerPadding)
     }
 
 

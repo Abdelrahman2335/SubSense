@@ -28,7 +28,6 @@ fun CounterTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    errorMessage: String?,
 ) {
     BasicTextField(
         value = value,
@@ -38,7 +37,7 @@ fun CounterTextField(
             .height(36.dp)
             .border(
                 1.dp,
-                color = if (errorMessage != null) Color.Red else mutedForeground,
+                mutedForeground,
                 RoundedCornerShape(8.dp)
             )
             .background(muted, RoundedCornerShape(8.dp))
