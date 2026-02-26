@@ -4,6 +4,7 @@ package com.example.subsense.setting.presentation.view.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -14,6 +15,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AttachMoney
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -60,14 +63,18 @@ fun BudgetCard(
         }
         Text(categories[index].displayName, modifier = Modifier.weight(1f))
         OutlinedTextField(
+
             value = textValue,
             onValueChange = { textValue = it },
             shape = RoundedCornerShape(21.dp),
             singleLine = true,
             modifier = Modifier
                 .width(100.dp)
-                .padding(top = 12.dp, bottom = 12.dp),
+                .height(60.dp),
+            textStyle = LocalTextStyle.current.copy(
+                color = MaterialTheme.colorScheme.onSurface
 
+            ),
             leadingIcon = {
                 Icon(
 
@@ -84,8 +91,8 @@ fun BudgetCard(
                 onDone = {
                     focusManager.clearFocus()
                 }
-            )
+            ),
 
-        )
+            )
     }
 }

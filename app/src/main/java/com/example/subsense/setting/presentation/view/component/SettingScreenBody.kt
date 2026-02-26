@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AttachMoney
+import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -73,10 +74,55 @@ fun SettingScreenBody(innerPadding: PaddingValues) {
         }
         item {
             CustomButton(
+                Modifier.padding(vertical = 16.dp),
                 onClick = {
 
                 },
             )
         }
+        item {
+
+            Row(
+                Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+
+                ) {
+                Icon(
+
+                    Icons.Outlined.Notifications,
+                    contentDescription = null,
+                    tint = Color.Gray,
+                    modifier = Modifier.size(18.dp)
+                )
+                Text(
+                    "Notifications",
+                    color = Color.Gray,
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            CustomAlert(
+                "Budget Alerts",
+                "Get notified when approaching limits",
+                true,
+                {},
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 9.dp)
+                    .height(2.dp)
+                    .background(mutedForeground.copy(alpha = 0.3f))
+            )
+            CustomAlert(
+                "Daily Reminders",
+                "Remind to log expenses",
+                false,
+                {},
+            )
+
+        }
+
     }
 }

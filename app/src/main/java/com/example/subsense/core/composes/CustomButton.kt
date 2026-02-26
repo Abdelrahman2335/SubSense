@@ -16,12 +16,13 @@ import com.example.subsense.core.ui.LightColors.mutedForeground
 
 @Composable
 fun CustomButton(
+    modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
     ElevatedButton(
         shape = RoundedCornerShape(14.dp),
 
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(64.dp)
             .padding(bottom = 19.dp, start = 14.dp, end = 14.dp),
