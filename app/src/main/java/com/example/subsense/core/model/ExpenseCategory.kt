@@ -29,9 +29,9 @@ sealed class ExpenseCategory(
     val icon: ImageVector,
     val color: Color
 ) {
-    data object FoodDining : ExpenseCategory(
-        id = "food_dining",
-        displayName = "Food & Dining",
+    data object Food : ExpenseCategory(
+        id = "food",
+        displayName = "Food",
         icon = Icons.Outlined.Restaurant,
         color = Color(0xFF2196F3) // Blue
     )
@@ -106,16 +106,16 @@ sealed class ExpenseCategory(
         color = Color(0xFFF06292) // Light Pink
     )
 
-    data object HomeGarden : ExpenseCategory(
-        id = "home_garden",
-        displayName = "Home & Garden",
+    data object Home : ExpenseCategory(
+        id = "home",
+        displayName = "Home",
         icon = Icons.Outlined.Home,
         color = Color(0xFF795548) // Brown
     )
 
-    data object FitnessSports : ExpenseCategory(
-        id = "fitness_sports",
-        displayName = "Fitness & Sports",
+    data object Sports : ExpenseCategory(
+        id = "sports",
+        displayName = "Sports",
         icon = Icons.Outlined.FitnessCenter,
         color = Color(0xFF009688) // Teal
     )
@@ -146,7 +146,7 @@ sealed class ExpenseCategory(
          * Returns a list of all available expense categories
          */
         fun getAllCategories(): List<ExpenseCategory> = listOf(
-            FoodDining,
+            Food,
             Transportation,
             Entertainment,
             Shopping,
@@ -157,8 +157,8 @@ sealed class ExpenseCategory(
             Groceries,
             PersonalCare,
             GiftsDonations,
-            HomeGarden,
-            FitnessSports,
+            Home,
+            Sports,
             Subscriptions,
             PetCare,
             Other

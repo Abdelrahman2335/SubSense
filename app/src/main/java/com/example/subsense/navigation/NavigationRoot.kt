@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBalanceWallet
 import androidx.compose.material.icons.filled.Handshake
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -16,6 +17,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.subsense.core.ui.Constraints.DEBT_SCREEN
 import com.example.subsense.core.ui.Constraints.EXPENSE_SCREEN
+import com.example.subsense.core.ui.Constraints.SETTING_SCREEN
 
 @Composable
 fun NavigationRoot(
@@ -32,7 +34,7 @@ fun NavigationRoot(
                     onClick = {
                         navController.navigate(ExpenseScreen) {
 
-                            popUpTo(ExpenseScreen) { inclusive = true }
+                            popUpTo(ExpenseScreen) { inclusive = false }
                             launchSingleTop = true
 
                         }
@@ -45,13 +47,26 @@ fun NavigationRoot(
                     onClick = {
                         navController.navigate(DebtScreen) {
 
-                            popUpTo(ExpenseScreen) { inclusive = true }
+                            popUpTo(ExpenseScreen) { inclusive = false }
                             launchSingleTop = true
 
                         }
                     },
                     icon = { Icon(Icons.Default.Handshake, contentDescription = null) },
                     label = { Text("Debt") }
+                )
+                NavigationBarItem(
+                    selected = currentRoute?.contains(SETTING_SCREEN) == true,
+                    onClick = {
+                        navController.navigate(SettingScreen) {
+
+                            popUpTo(SettingScreen) { inclusive = false }
+                            launchSingleTop = true
+
+                        }
+                    },
+                    icon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
+                    label = { Text("Settings") }
                 )
             }
         }

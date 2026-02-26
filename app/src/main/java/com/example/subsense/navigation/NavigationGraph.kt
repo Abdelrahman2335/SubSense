@@ -9,11 +9,16 @@ import com.example.subsense.debts.presentation.view.screen.DebtScreen
 import com.example.subsense.expense.presentation.view.screen.ExpensesScreen
 import com.example.subsense.manage_debts.presentation.view.screen.ManageDebtsScreen
 import com.example.subsense.manage_expences.presentation.view.screen.ManageExpenseScreen
+import com.example.subsense.setting.presentation.view.screen.SettingScreen
 import kotlinx.serialization.Serializable
 
 
 @Serializable
 data object ExpenseScreen
+
+
+@Serializable
+data object ManageExpensesScreen
 
 @Serializable
 data object DebtScreen
@@ -21,8 +26,10 @@ data object DebtScreen
 @Serializable
 data object ManageDebtScreen
 
+
 @Serializable
-data object ManageExpensesScreen
+data object SettingScreen
+
 
 @Serializable
 data class EditExpenseScreen(val id: String) // will be removed later
@@ -64,6 +71,9 @@ fun NavigationGraph(
             ManageDebtsScreen(
                 onBack = { navController.popBackStack() }
             )
+        }
+        composable<SettingScreen> {
+            SettingScreen()
         }
     }
 }

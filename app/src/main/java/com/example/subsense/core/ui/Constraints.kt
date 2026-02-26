@@ -14,4 +14,5 @@ object Constraints {
     // Navigation routes
     const val EXPENSE_SCREEN = "ExpenseScreen"
     const val DEBT_SCREEN = "DebtScreen"
+    const val SETTING_SCREEN = "SettingScreen"
 }
