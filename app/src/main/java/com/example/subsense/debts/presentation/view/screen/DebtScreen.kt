@@ -35,5 +35,4 @@ fun DebtScreen(
         DebtScreenBody(innerPadding = innerPadding)
     }
 
-
 }

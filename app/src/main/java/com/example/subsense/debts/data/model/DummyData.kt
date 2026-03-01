@@ -4,9 +4,9 @@ fun getDummyDebtData(): List<DebtModel> {
     return listOf(
         DebtModel(
             1,
-            DebtType.BORROWED,
+            DebtType.BORROW,
             "John Loan",
-            500f,
+            500.0,
             System.currentTimeMillis(),
             "Borrowed for rent",
             DebtStatus.Pending
@@ -15,16 +15,16 @@ fun getDummyDebtData(): List<DebtModel> {
             2,
             DebtType.LENT,
             "Visa Bill",
-            1200f,
+            1200.0,
             System.currentTimeMillis(),
             "Monthly expenses",
             DebtStatus.Overdue
         ),
         DebtModel(
             3,
-            DebtType.BORROWED,
+            DebtType.BORROW,
             "Sarah Debt",
-            300f,
+            300.0,
             System.currentTimeMillis(),
             "Dinner money",
             DebtStatus.Paid
@@ -33,16 +33,16 @@ fun getDummyDebtData(): List<DebtModel> {
             4,
             DebtType.LENT,
             "Home Loan",
-            150000f,
+            150000.0,
             System.currentTimeMillis(),
             "Mortgage payment",
             DebtStatus.PartiallyPaid
         ),
         DebtModel(
             5,
-            DebtType.BORROWED,
+            DebtType.BORROW,
             "Mike Loan",
-            750f,
+            750.0,
             System.currentTimeMillis(),
             "Car repair",
             DebtStatus.Pending
@@ -51,16 +51,16 @@ fun getDummyDebtData(): List<DebtModel> {
             6,
             DebtType.LENT,
             "Mastercard",
-            850f,
+            850.0,
             System.currentTimeMillis(),
             "Shopping",
             DebtStatus.Overdue
         ),
         DebtModel(
             7,
-            DebtType.BORROWED,
+            DebtType.BORROW,
             "Emma Debt",
-            200f,
+            200.0,
             System.currentTimeMillis(),
             "Book purchase",
             DebtStatus.Paid
@@ -69,16 +69,16 @@ fun getDummyDebtData(): List<DebtModel> {
             8,
             DebtType.LENT,
             "Student Loan",
-            25000f,
+            25000.0,
             System.currentTimeMillis(),
             "Education",
             DebtStatus.PartiallyPaid
         ),
         DebtModel(
             9,
-            DebtType.BORROWED,
+            DebtType.BORROW,
             "Amex",
-            2500f,
+            2500.0,
             System.currentTimeMillis(),
             "Travel expenses",
             DebtStatus.Cancelled
@@ -87,7 +87,7 @@ fun getDummyDebtData(): List<DebtModel> {
             10,
             DebtType.LENT,
             "Alex Loan",
-            450f,
+            450.0,
             System.currentTimeMillis(),
             "Medical bills",
             DebtStatus.Pending

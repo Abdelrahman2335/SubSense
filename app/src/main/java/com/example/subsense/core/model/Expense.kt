@@ -8,7 +8,7 @@ import com.example.subsense.setting.data.model.RecurringPattern
 data class Expense(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    val amount: Float?,
+    val amount: Double?,
     val category: ExpenseCategory,
     val date: Long = System.currentTimeMillis(), // timestamp in milliseconds
     val note: String?,

@@ -26,7 +26,7 @@ fun DebtScreenBody(
 ) {
     val data = getDummyDebtData()
     val moneyLent = data.filter { it.debtType == DebtType.LENT }
-    val moneyBorrowed = data.filter { it.debtType == DebtType.BORROWED }
+    val moneyBORROW = data.filter { it.debtType == DebtType.BORROW }
     LazyColumn(
         Modifier
             .fillMaxSize()
@@ -57,7 +57,7 @@ fun DebtScreenBody(
             )
             // List of debits
         }
-        items(moneyBorrowed) { DebtItem(it) }
+        items(moneyBORROW) { DebtItem(it) }
 
 
     }

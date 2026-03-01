@@ -9,7 +9,7 @@ data class DebtModel(
     val id: Long,
     val debtType: DebtType,
     val name: String,
-    val amount: Float?,
+    val amount: Double?,
     val dueDate: Long = System.currentTimeMillis(),
     val note: String?,
     val status: DebtStatus = DebtStatus.Pending

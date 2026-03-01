@@ -141,12 +141,12 @@ class ManageExpenseViewModel @Inject constructor(
         Log.d(TAG, "📍 Event: SetAmountInput | raw input='$input'")
 
         try {
-            // Parse the input string to Float
+            // Parse the input string to Double
             val amount = if (input.isEmpty() || input.isBlank()) {
                 Log.d(TAG, "⚠️ Amount input is empty, setting to null")
                 null
             } else {
-                val parsedAmount = input.toFloatOrNull()
+                val parsedAmount = input.toDoubleOrNull()
                 if (parsedAmount == null) {
                     Log.w(TAG, "⚠️ Failed to parse amount: '$input' is not a valid number")
                     // Keep current amount, don't update
