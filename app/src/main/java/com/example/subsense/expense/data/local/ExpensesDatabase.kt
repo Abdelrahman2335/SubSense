@@ -1,10 +1,12 @@
-package com.example.subsense.core.model
+package com.example.subsense.expense.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.subsense.core.util.Converters
-import com.example.subsense.expense.data.dao.ExpenseDao
+import com.example.subsense.core.model.Budget
+import com.example.subsense.core.model.Expense
+import com.example.subsense.expense.data.local.converter.Converters
+import com.example.subsense.expense.data.local.dao.ExpenseDao
 import com.example.subsense.manage_expences.data.dao.ManageExpensesDao
 
 @Database(

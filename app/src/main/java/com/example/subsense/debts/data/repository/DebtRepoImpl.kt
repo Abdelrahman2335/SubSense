@@ -1,6 +1,6 @@
 package com.example.subsense.debts.data.repository
 
-import com.example.subsense.debts.data.dao.DebtDao
+import com.example.subsense.debts.data.local.dao.DebtDao
 import com.example.subsense.debts.data.model.DebtModel
 import com.example.subsense.debts.data.model.DebtStatus
 import com.example.subsense.debts.data.model.DebtType

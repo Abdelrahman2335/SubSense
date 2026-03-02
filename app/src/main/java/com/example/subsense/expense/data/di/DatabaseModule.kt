@@ -1,9 +1,9 @@
-package com.example.subsense.core.di
+package com.example.subsense.expense.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.subsense.core.model.ExpensesDatabase
-import com.example.subsense.expense.data.dao.ExpenseDao
+import com.example.subsense.expense.data.local.ExpensesDatabase
+import com.example.subsense.expense.data.local.dao.ExpenseDao
 import com.example.subsense.manage_expences.data.dao.ManageExpensesDao
 import dagger.Module
 import dagger.Provides

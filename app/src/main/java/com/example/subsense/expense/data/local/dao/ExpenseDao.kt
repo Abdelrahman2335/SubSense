@@ -1,4 +1,4 @@
-package com.example.subsense.expense.data.dao
+package com.example.subsense.expense.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Query

@@ -1,7 +1,9 @@
-package com.example.subsense.core.util
+package com.example.subsense.expense.data.local.converter
 
 import androidx.room.TypeConverter
 import com.example.subsense.core.model.ExpenseCategory
+import com.example.subsense.core.util.toEpochMilli
+import com.example.subsense.core.util.toLocalDateTime
 import com.example.subsense.setting.data.model.RecurringPattern
 import kotlinx.serialization.json.Json
 import java.time.LocalDateTime
@@ -28,17 +30,17 @@ class Converters {
 
     @TypeConverter
     fun toExpenseCategory(id: String): ExpenseCategory {
-        return ExpenseCategory.Companion.fromId(id) ?: ExpenseCategory.Other
+        return ExpenseCategory.fromId(id) ?: ExpenseCategory.Other
     }
 
     // RecurringPattern: Store as JSON string
     @TypeConverter
     fun fromRecurringPattern(pattern: RecurringPattern?): String? {
-        return pattern?.let { Json.Default.encodeToString(RecurringPattern.serializer(), it) }
+        return pattern?.let { Json.encodeToString(RecurringPattern.serializer(), it) }
     }
 
     @TypeConverter
     fun toRecurringPattern(json: String?): RecurringPattern? {
-        return json?.let { Json.Default.decodeFromString(RecurringPattern.serializer(), it) }
+        return json?.let { Json.decodeFromString(RecurringPattern.serializer(), it) }
     }
 }
