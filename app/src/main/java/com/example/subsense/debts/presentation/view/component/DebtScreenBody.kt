@@ -12,21 +12,24 @@ import androidx.compose.material.icons.automirrored.filled.TrendingUp
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.subsense.core.ui.LightColors.accent
 import com.example.subsense.core.ui.LightColors.destructive
-import com.example.subsense.debts.data.model.DebtType
-import com.example.subsense.debts.data.model.getDummyDebtData
+import com.example.subsense.debts.presentation.manager.view_model.DebtViewModel
 
 @Composable
 fun DebtScreenBody(
+    viewModel: DebtViewModel = hiltViewModel<DebtViewModel>(),
     innerPadding: PaddingValues
 ) {
-    val data = getDummyDebtData()
-    val moneyLent = data.filter { it.debtType == DebtType.LENT }
-    val moneyBORROW = data.filter { it.debtType == DebtType.BORROW }
+
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
     LazyColumn(
         Modifier
             .fillMaxSize()
@@ -36,8 +39,18 @@ fun DebtScreenBody(
 
         ) {
         item {
-            SummaryCard("Money You Lent", Icons.AutoMirrored.Filled.TrendingUp, accent)
-            SummaryCard("Money You Borrowed", Icons.AutoMirrored.Filled.TrendingDown, destructive)
+            SummaryCard(
+                "Money You Lent",
+                Icons.AutoMirrored.Filled.TrendingUp,
+                accent,
+                state.totalLent
+            )
+            SummaryCard(
+                "Money You Borrowed",
+                Icons.AutoMirrored.Filled.TrendingDown,
+                destructive,
+                state.totalBorrowed
+            )
         }
         item {
             Text(
@@ -47,7 +60,7 @@ fun DebtScreenBody(
                 modifier = Modifier.padding(vertical = 16.dp, horizontal = 3.dp)
             )
         }
-        items(moneyLent) { DebtItem(it) }
+        items(state.moneyLent) { DebtItem(it) }
         item {
             Text(
                 "Money Borrowed", style = MaterialTheme.typography.titleMedium,
@@ -57,7 +70,7 @@ fun DebtScreenBody(
             )
             // List of debits
         }
-        items(moneyBORROW) { DebtItem(it) }
+        items(state.moneyBorrow) { DebtItem(it) }
 
 
     }

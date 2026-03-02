@@ -1,5 +1,6 @@
 package com.example.subsense.core.util
 
+import java.text.NumberFormat
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -33,3 +34,10 @@ fun Long.toLocalDateTime(): LocalDateTime {
 fun Long.toDateString(pattern: String = "MMM dd, yyyy"): String {
     return this.toLocalDateTime().toFormattedString(pattern)
 }
+
+// ===== Currency Formatting =====
+
+fun Number.formatCurrency(locale: Locale = Locale.US): String {
+    return NumberFormat.getCurrencyInstance(locale).format(this)
+}
+

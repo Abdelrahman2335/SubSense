@@ -21,20 +21,18 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.subsense.core.ui.LightColors.mutedForeground
-import java.text.NumberFormat
-import java.util.Locale
+import com.example.subsense.core.util.formatCurrency
 
 
 @Composable
 fun SummaryCard(
     title: String,
     icon: ImageVector,
-    color: Color
+    color: Color,
+    amount: Double
 ) {
-    val amount = 224.50
 
-    val formattedAmount =
-        NumberFormat.getCurrencyInstance(Locale.US).format(amount) // Put it in the VM
+    val formattedAmount = amount.formatCurrency()
 
     Box(
         modifier = Modifier

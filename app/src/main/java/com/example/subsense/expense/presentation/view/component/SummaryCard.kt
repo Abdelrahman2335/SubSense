@@ -21,18 +21,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.subsense.core.ui.LightColors.accent
 import com.example.subsense.core.ui.LightColors.mutedForeground
-import java.text.NumberFormat
-import java.util.Locale
+import com.example.subsense.core.util.formatCurrency
 
 @Composable
 fun SummaryCard() {
     val amount = 1234.50
     val amount2 = 1500
 
-    val formattedAmount =
-        NumberFormat.getCurrencyInstance(Locale.US).format(amount) // Put it in the VM
-    val formattedAmount2 =
-        NumberFormat.getCurrencyInstance(Locale.US).format(amount2) // Put it in the VM
+    val formattedAmount = amount.formatCurrency()
+    val formattedAmount2 = amount2.formatCurrency()
 
     Box(
         modifier = Modifier
