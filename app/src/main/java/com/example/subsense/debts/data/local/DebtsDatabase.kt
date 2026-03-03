@@ -1,5 +1,6 @@
 package com.example.subsense.debts.data.local
 
+import ManageDebtsDao
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -16,4 +17,5 @@ import com.example.subsense.debts.data.model.DebtType
 @TypeConverters(DebtConverters::class)
 abstract class DebtsDatabase : RoomDatabase() {
     abstract val debtDao: DebtDao
+    abstract val manageDebtsDao: ManageDebtsDao
 }

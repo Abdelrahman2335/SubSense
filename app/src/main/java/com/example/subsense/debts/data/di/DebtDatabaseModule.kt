@@ -1,5 +1,6 @@
 package com.example.subsense.debts.data.di
 
+import ManageDebtsDao
 import android.content.Context
 import androidx.room.Room
 import com.example.subsense.debts.data.local.DebtsDatabase
@@ -32,6 +33,12 @@ object DebtDatabaseModule {
     @Singleton
     fun providerDebtDao(database: DebtsDatabase): DebtDao {
         return database.debtDao
+    }
+
+    @Provides
+    @Singleton
+    fun provideManageDebtsDao(database: DebtsDatabase): ManageDebtsDao {
+        return database.manageDebtsDao
     }
 
 }
