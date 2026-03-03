@@ -21,18 +21,30 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.subsense.core.ui.LightColors.accent
 import com.example.subsense.core.ui.LightColors.destructive
 import com.example.subsense.core.ui.LightColors.secondaryForeground
+import com.example.subsense.debts.data.model.DebtType
+import com.example.subsense.manage_debts.presentation.manager.event.ManageDebtsEvent
+import com.example.subsense.manage_debts.presentation.manager.state.ManageDebtsState
 
 
 @Composable
-fun DebtTypeSelection() {
+fun DebtTypeSelection(
+    state: ManageDebtsState,
+    onEvent: (ManageDebtsEvent) -> Unit
+) {
 
-    // Should add boolean to show the color of the button
-
+    val isLent: Boolean = state.debt.debtType == DebtType.LENT
+    val defaultButtonColor = ButtonColors(
+        containerColor = Color.Gray.copy(0.1f),
+        contentColor = Color.Gray,
+        disabledContainerColor = Color.Gray,
+        disabledContentColor = Color.Gray
+    )
     Card(
         modifier = Modifier
             .fillMaxWidth(),
@@ -66,32 +78,32 @@ fun DebtTypeSelection() {
             ) {
                 OutlinedButton(
 
-                    colors = ButtonColors(
+                    colors = if (isLent) ButtonColors(
                         containerColor = accent.copy(0.1f),
                         contentColor = accent,
                         disabledContainerColor = accent,
                         disabledContentColor = accent
-                    ),
+                    ) else defaultButtonColor,
                     border = BorderStroke(
                         width = 1.dp,
-                        color = accent,
+                        color = if (isLent) accent else Color.Gray,
                     ),
-                    onClick = { }
+                    onClick = { onEvent(ManageDebtsEvent.SetDebtType(DebtType.LENT)) }
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.TrendingUp,
                         contentDescription = null,
-                        tint = accent,
+                        tint = if (isLent) accent else Color.Gray,
                         modifier = Modifier.size(18.dp)
 
                     )
                     Text(
-                        "Lent", color = accent,
+                        "Lent", color = if (isLent) accent else Color.Gray,
                         modifier = Modifier.padding(9.dp)
                     )
                 }
                 OutlinedButton(
-                    colors = ButtonColors(
+                    colors = if (isLent) defaultButtonColor else ButtonColors(
                         containerColor = destructive.copy(0.1f),
                         contentColor = destructive,
                         disabledContainerColor = destructive,
@@ -99,20 +111,20 @@ fun DebtTypeSelection() {
                     ),
                     border = BorderStroke(
                         width = 1.dp,
-                        color = destructive,
+                        color = if (isLent) Color.Gray else destructive,
                     ),
-                    onClick = { }
+                    onClick = { onEvent(ManageDebtsEvent.SetDebtType(DebtType.BORROW)) }
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.TrendingDown,
                         contentDescription = null,
-                        tint = destructive,
+                        tint = if (isLent) Color.Gray else destructive,
 
                         modifier = Modifier.size(18.dp)
                     )
 
                     Text(
-                        "Borrowed", color = destructive,
+                        "Borrowed", color = if (isLent) Color.Gray else destructive,
                         modifier = Modifier.padding(9.dp)
 
                     )

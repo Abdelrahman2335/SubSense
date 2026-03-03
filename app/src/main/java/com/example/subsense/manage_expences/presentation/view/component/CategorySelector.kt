@@ -19,25 +19,25 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.subsense.manage_expences.presentation.manager.event.ManageExpenseEvent
-import com.example.subsense.manage_expences.presentation.manager.view_model.ManageExpenseViewModel
+import com.example.subsense.manage_expences.presentation.manager.state.ManageExpenseState
 
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CategorySelector(
-    viewModel: ManageExpenseViewModel
+    state: ManageExpenseState,
+    onEvent: (ManageExpenseEvent) -> Unit
 
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+
+
     Card(
         modifier = Modifier
             .fillMaxWidth(),
@@ -70,7 +70,7 @@ fun CategorySelector(
                             .size(44.dp)
                             .clip(CircleShape)
                             .background(category.color)
-                            .clickable { viewModel.onEvent(ManageExpenseEvent.SetCategory(category)) }
+                            .clickable { onEvent(ManageExpenseEvent.SetCategory(category)) }
                             .then(
                                 if (state.expense.category == category) {
                                     Modifier.border(

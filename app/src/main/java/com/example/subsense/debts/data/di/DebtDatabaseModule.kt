@@ -1,10 +1,10 @@
 package com.example.subsense.debts.data.di
 
-import ManageDebtsDao
 import android.content.Context
 import androidx.room.Room
 import com.example.subsense.debts.data.local.DebtsDatabase
 import com.example.subsense.debts.data.local.dao.DebtDao
+import com.example.subsense.manage_debts.data.dao.ManageDebtsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

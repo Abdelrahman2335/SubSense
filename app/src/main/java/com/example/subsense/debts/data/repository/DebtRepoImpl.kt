@@ -4,11 +4,9 @@ import com.example.subsense.debts.data.local.dao.DebtDao
 import com.example.subsense.debts.data.model.DebtModel
 import com.example.subsense.debts.data.model.DebtStatus
 import com.example.subsense.debts.data.model.DebtType
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-@HiltViewModel
 class DebtRepoImpl @Inject constructor(
     private val debtDao: DebtDao
 ) : DebtRepo {

@@ -5,14 +5,35 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.subsense.core.composes.CustomButton
 import com.example.subsense.core.composes.CustomField
 import com.example.subsense.core.composes.DatePickerField
+import com.example.subsense.core.util.toDateString
+import com.example.subsense.manage_debts.presentation.manager.event.ManageDebtsEvent
+import com.example.subsense.manage_debts.presentation.manager.view_model.ManageDebtViewModel
 
 @Composable
-fun ManageDebtsScreenBody(modifier: Modifier) {
+fun ManageDebtsScreenBody(
+    viewModel: ManageDebtViewModel = hiltViewModel<ManageDebtViewModel>(),
+    modifier: Modifier,
+    onBack: () -> Unit
+) {
+
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val onEvent: (ManageDebtsEvent) -> Unit = viewModel::onEvent
+
+    LaunchedEffect(state.isSaved) {
+        if (state.isSaved) {
+            onBack()
+        }
+    }
+
     LazyColumn(
         modifier
             .fillMaxSize()
@@ -21,50 +42,46 @@ fun ManageDebtsScreenBody(modifier: Modifier) {
 
     ) {
         item {
-            DebtTypeSelection()
+            DebtTypeSelection(state, onEvent = onEvent)
         }
         item {
             CustomField(
                 head = "Person's Name",
                 placeholder = "Enter name",
-                onValueChange = {},
-                value = "",
-                errorMessage = null,
+                onValueChange = { onEvent(ManageDebtsEvent.SetName(it)) },
+                value = state.debt.name,
+                errorMessage = state.nameError,
                 enableLeadingIcon = false
             )
-
         }
         item {
             CustomField(
                 head = "Amount",
                 placeholder = "0.00",
-                onValueChange = {},
-                value = "",
-                errorMessage = null,
+                onValueChange = { onEvent(ManageDebtsEvent.SetAmount(it)) },
+                value = state.debt.amount?.toString() ?: "",
+                errorMessage = state.amountError,
             )
         }
         item {
             DatePickerField(
-                selectedDate = "",
-                onDateSelected = { }
+                selectedDate = state.debt.dueDate.toDateString(),
+                onDateSelected = { onEvent(ManageDebtsEvent.SetDueDate(it)) }
             )
         }
         item {
             CustomField(
                 head = "Note",
                 placeholder = "What was this for?",
-                onValueChange = {},
-                value = "",
+                onValueChange = { onEvent(ManageDebtsEvent.SetNote(it)) },
+                value = state.debt.note ?: "",
                 errorMessage = null,
             )
         }
         item {
             CustomButton(
-                onClick = {
-
-                },
+                onClick = { onEvent(ManageDebtsEvent.SaveDebt) },
             )
         }
     }
 }
-

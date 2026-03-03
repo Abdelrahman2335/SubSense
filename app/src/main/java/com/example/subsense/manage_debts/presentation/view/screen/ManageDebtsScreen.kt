@@ -11,7 +11,6 @@ import com.example.subsense.manage_debts.presentation.view.component.ManageDebts
 @Composable
 fun ManageDebtsScreen(
     onBack: () -> Unit
-
 ) {
     Scaffold(
         topBar = {
@@ -20,7 +19,7 @@ fun ManageDebtsScreen(
             }
         }
     ) { innerPadding ->
-        ManageDebtsScreenBody(Modifier.padding(innerPadding))
+        ManageDebtsScreenBody(modifier = Modifier.padding(innerPadding), onBack = onBack)
     }
 }
 

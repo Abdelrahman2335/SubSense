@@ -50,9 +50,7 @@ fun ManageExpenseBody(
         }
 
         item {
-            CategorySelector(
-                viewModel = viewModel,
-            )
+            CategorySelector(state, viewModel::onEvent)
         }
 
         item {

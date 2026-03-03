@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.subsense.debts.data.repository.DebtRepo
 import com.example.subsense.debts.presentation.manager.event.DebtEvent
 import com.example.subsense.debts.presentation.manager.state.DebtState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class DebtViewModel @Inject constructor(
     private val repository: DebtRepo
 ) : ViewModel() {

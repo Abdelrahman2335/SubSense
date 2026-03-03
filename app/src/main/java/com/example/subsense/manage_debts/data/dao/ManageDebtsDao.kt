@@ -1,3 +1,5 @@
+package com.example.subsense.manage_debts.data.dao
+
 import androidx.room.Dao
 import androidx.room.Upsert
 import com.example.subsense.debts.data.model.DebtModel
@@ -7,5 +9,5 @@ import com.example.subsense.debts.data.model.DebtModel
 interface ManageDebtsDao {
 
     @Upsert
-    fun upsertDebt(debt: DebtModel)
+    suspend fun upsertDebt(debt: DebtModel)
 }
