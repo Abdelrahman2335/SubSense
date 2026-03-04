@@ -23,9 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.subsense.core.ui.LightColors.mutedForeground
+import com.example.subsense.manage_expences.data.model.Frequency
 import com.example.subsense.manage_expences.presentation.manager.event.ManageExpenseEvent
 import com.example.subsense.manage_expences.presentation.manager.state.ManageExpenseState
-import com.example.subsense.setting.data.model.Frequency
 
 @Composable
 fun RepeatExpense(

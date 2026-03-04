@@ -3,7 +3,7 @@ package com.example.subsense.expense.presentation.manager.view_model
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.subsense.core.model.Expense
+import com.example.subsense.core.data.model.Expense
 import com.example.subsense.expense.data.repository.ExpenseRepo
 import com.example.subsense.expense.presentation.manager.event.ExpenseEvent
 import com.example.subsense.expense.presentation.manager.state.ExpenseState

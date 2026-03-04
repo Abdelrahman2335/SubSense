@@ -1,4 +1,4 @@
-package com.example.subsense.core.model
+package com.example.subsense.core.data.model
 
 data class BudgetStatus(
     val category: ExpenseCategory,

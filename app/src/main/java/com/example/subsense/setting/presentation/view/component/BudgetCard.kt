@@ -31,14 +31,13 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.subsense.core.model.ExpenseCategory
+import com.example.subsense.core.data.model.ExpenseCategory
 
 
 @Composable
 fun BudgetCard(
 
-    index: Int,
-    categories: List<ExpenseCategory>
+    category: ExpenseCategory
 ) {
 
     var textValue by remember { mutableStateOf("") }
@@ -52,16 +51,16 @@ fun BudgetCard(
                 .padding(12.dp)
                 .size(41.dp)
                 .clip(CircleShape)
-                .background(categories[index].color.copy(0.2f)),
+                .background(category.color.copy(0.2f)),
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                imageVector = categories[index].icon,
-                contentDescription = categories[index].displayName,
-                tint = categories[index].color,
+                imageVector = category.icon,
+                contentDescription = category.displayName,
+                tint = category.color,
             )
         }
-        Text(categories[index].displayName, modifier = Modifier.weight(1f))
+        Text(category.displayName, modifier = Modifier.weight(1f))
         OutlinedTextField(
 
             value = textValue,

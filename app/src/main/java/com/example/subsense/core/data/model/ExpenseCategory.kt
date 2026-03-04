@@ -1,4 +1,4 @@
-package com.example.subsense.core.model
+package com.example.subsense.core.data.model
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DirectionsCar

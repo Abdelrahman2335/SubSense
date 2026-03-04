@@ -1,10 +1,10 @@
 package com.example.subsense.expense.data.local.converter
 
 import androidx.room.TypeConverter
-import com.example.subsense.core.model.ExpenseCategory
+import com.example.subsense.core.data.model.ExpenseCategory
 import com.example.subsense.core.util.toEpochMilli
 import com.example.subsense.core.util.toLocalDateTime
-import com.example.subsense.setting.data.model.RecurringPattern
+import com.example.subsense.manage_expences.data.model.RecurringPattern
 import kotlinx.serialization.json.Json
 import java.time.LocalDateTime
 

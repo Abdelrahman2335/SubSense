@@ -1,4 +1,4 @@
-package com.example.subsense.setting.data.model
+package com.example.subsense.manage_expences.data.model
 
 import kotlinx.serialization.Serializable
 

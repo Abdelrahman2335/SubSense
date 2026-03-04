@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AttachMoney
 import androidx.compose.material.icons.outlined.Notifications
@@ -23,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.subsense.core.composes.CustomButton
-import com.example.subsense.core.model.ExpenseCategory
+import com.example.subsense.core.data.model.ExpenseCategory
 import com.example.subsense.core.ui.LightColors.mutedForeground
 
 @Composable
@@ -61,9 +62,9 @@ fun SettingScreenBody(innerPadding: PaddingValues) {
 
         }
 
-        items(categories.size) { index ->
+        items(categories) { category ->
 
-            BudgetCard(index, categories)
+            BudgetCard(category)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()

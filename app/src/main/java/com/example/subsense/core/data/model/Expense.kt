@@ -1,8 +1,8 @@
-package com.example.subsense.core.model
+package com.example.subsense.core.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.subsense.setting.data.model.RecurringPattern
+import com.example.subsense.manage_expences.data.model.RecurringPattern
 
 @Entity(tableName = "expenses")
 data class Expense(

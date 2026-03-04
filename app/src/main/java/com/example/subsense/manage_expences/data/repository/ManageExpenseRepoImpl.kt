@@ -1,6 +1,6 @@
 package com.example.subsense.manage_expences.data.repository
 
-import com.example.subsense.core.model.Expense
+import com.example.subsense.core.data.model.Expense
 import com.example.subsense.manage_expences.data.local.dao.ManageExpensesDao
 import javax.inject.Inject
 

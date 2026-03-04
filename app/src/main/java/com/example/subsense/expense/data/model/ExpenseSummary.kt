@@ -1,6 +1,6 @@
 package com.example.subsense.expense.data.model
 
-import com.example.subsense.core.model.ExpenseCategory
+import com.example.subsense.core.data.model.ExpenseCategory
 
 data class ExpenseSummary(
     val category: ExpenseCategory,

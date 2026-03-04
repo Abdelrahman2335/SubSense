@@ -1,4 +1,4 @@
-package com.example.subsense.core.model
+package com.example.subsense.core.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -6,10 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "budget")
 data class Budget(
-    @PrimaryKey(true)
-    val id: Long,
-    val category: ExpenseCategory,
-    val limitAmount: Long, // cents
+    @PrimaryKey
+    val categoryId: String,
+    val limitAmount: Int,
     val month: Int, // 1-12
     val year: Int
 )

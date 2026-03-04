@@ -1,7 +1,7 @@
 package com.example.subsense.manage_expences.presentation.manager.event
 
-import com.example.subsense.core.model.ExpenseCategory
-import com.example.subsense.setting.data.model.Frequency
+import com.example.subsense.core.data.model.ExpenseCategory
+import com.example.subsense.manage_expences.data.model.Frequency
 
 sealed interface ManageExpenseEvent {
     data class SetAmountInput(val input: String) : ManageExpenseEvent

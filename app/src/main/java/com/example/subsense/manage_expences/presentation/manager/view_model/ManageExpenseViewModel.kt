@@ -3,12 +3,12 @@ package com.example.subsense.manage_expences.presentation.manager.view_model
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.subsense.core.model.Expense
+import com.example.subsense.core.data.model.Expense
+import com.example.subsense.manage_expences.data.model.Frequency
+import com.example.subsense.manage_expences.data.model.RecurringPattern
 import com.example.subsense.manage_expences.data.repository.ManageExpenseRepo
 import com.example.subsense.manage_expences.presentation.manager.event.ManageExpenseEvent
 import com.example.subsense.manage_expences.presentation.manager.state.ManageExpenseState
-import com.example.subsense.setting.data.model.Frequency
-import com.example.subsense.setting.data.model.RecurringPattern
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -225,5 +225,5 @@ class ManageExpenseViewModel @Inject constructor(
         // All validations passed
         return null
     }
-    
+
 }

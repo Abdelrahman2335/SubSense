@@ -1,6 +1,6 @@
 package com.example.subsense.expense.data.repository
 
-import com.example.subsense.core.model.Expense
+import com.example.subsense.core.data.model.Expense
 import com.example.subsense.expense.data.local.dao.ExpenseDao
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

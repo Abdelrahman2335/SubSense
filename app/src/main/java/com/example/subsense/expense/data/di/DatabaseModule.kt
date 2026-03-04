@@ -2,9 +2,10 @@ package com.example.subsense.expense.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.subsense.expense.data.local.ExpensesDatabase
+import com.example.subsense.core.data.local.ExpensesDatabase
 import com.example.subsense.expense.data.local.dao.ExpenseDao
 import com.example.subsense.manage_expences.data.local.dao.ManageExpensesDao
+import com.example.subsense.setting.data.local.dao.SettingDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,5 +45,13 @@ object DatabaseModule {
         database: ExpensesDatabase
     ): ExpenseDao {
         return database.expenseDao
+    }
+    
+    @Provides
+    @Singleton
+    fun provideSettingDao(
+        database: ExpensesDatabase
+    ): SettingDao {
+        return database.settingDao
     }
 }
