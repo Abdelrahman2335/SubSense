@@ -93,27 +93,20 @@ class ManageDebtViewModel @Inject constructor(
     private fun handleAmountInput(input: String) {
         Log.d(TAG, "📍 Event: SetAmountInput | raw input='$input'")
         try {
-            val amount = if (input.isEmpty() || input.isBlank()) {
-                Log.d(TAG, "⚠️ Amount input is empty, setting to null")
-                null
-            } else {
-                val parsedAmount = input.toDoubleOrNull()
-                if (parsedAmount == null) {
-                    Log.w(TAG, "⚠️ Failed to parse amount: '$input' is not a valid number")
-                    // Keep current amount, don't update
-                    return
-                }
-                Log.d(TAG, "✅ Amount parsed successfully: $parsedAmount")
-                parsedAmount
+
+            val parsedAmount = input.toIntOrNull()
+            if (input.contains(Regex("[.,+/-]+$"))) {
+                Log.w(TAG, "❌ Invalid input: $input")
+                return
             }
+
             val oldAmount = _state.value.debt.amount
             _state.update {
                 it.copy(
-                    debt = it.debt.copy(amount = amount),
-                    amountError = null
+                    debt = it.debt.copy(amount = parsedAmount)
                 )
             }
-            Log.d(TAG, "✅ State Updated: amount changed from $oldAmount to $amount")
+            Log.d(TAG, "✅ State Updated: amount changed from $oldAmount to $parsedAmount")
         } catch (e: Exception) {
             Log.e(TAG, "❌ Unexpected error parsing amount: '$input'", e)
             // Don't update state on error

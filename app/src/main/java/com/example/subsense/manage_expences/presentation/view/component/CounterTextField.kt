@@ -28,6 +28,7 @@ fun CounterTextField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    errorMessage: String?
 ) {
     BasicTextField(
         value = value,
@@ -37,7 +38,7 @@ fun CounterTextField(
             .height(36.dp)
             .border(
                 1.dp,
-                mutedForeground,
+                color = if (errorMessage != null) Color.Red else mutedForeground,
                 RoundedCornerShape(8.dp)
             )
             .background(muted, RoundedCornerShape(8.dp))
@@ -48,7 +49,7 @@ fun CounterTextField(
             color = Color.Black
         ),
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number,
+            keyboardType = KeyboardType.Decimal,
             imeAction = ImeAction.Done
         ),
         singleLine = true,
@@ -57,16 +58,9 @@ fun CounterTextField(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.fillMaxSize()
             ) {
-//                if (value.isEmpty()) {
-//                    Text(
-//                        "0",
-//                        fontSize = 14.sp,
-//                        color = Color.Gray,
-//                        textAlign = TextAlign.Center
-//                    )
-//                }
                 innerTextField()
             }
-        }
-    )
+        },
+
+        )
 }

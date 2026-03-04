@@ -24,11 +24,12 @@ import com.example.subsense.core.ui.LightColors.mutedForeground
 import com.example.subsense.core.util.formatCurrency
 
 @Composable
-fun SummaryCard() {
-    val amount = 1234.50
-    val amount2 = 1500
+fun SummaryCard(
+    totalSpent: Int
+) {
+    val amount2 = 1500 // dummy
 
-    val formattedAmount = amount.formatCurrency()
+    val formattedAmount = totalSpent.formatCurrency()
     val formattedAmount2 = amount2.formatCurrency()
 
     Box(

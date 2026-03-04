@@ -7,11 +7,11 @@ import com.example.subsense.core.model.Budget
 import com.example.subsense.core.model.Expense
 import com.example.subsense.expense.data.local.converter.Converters
 import com.example.subsense.expense.data.local.dao.ExpenseDao
-import com.example.subsense.manage_expences.data.dao.ManageExpensesDao
+import com.example.subsense.manage_expences.data.local.dao.ManageExpensesDao
 
 @Database(
     entities = [Expense::class, Budget::class],
-    version = 1,
+    version = 4,
 )
 
 @TypeConverters(Converters::class)

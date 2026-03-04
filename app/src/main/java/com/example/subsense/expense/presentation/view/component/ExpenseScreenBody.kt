@@ -18,8 +18,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.subsense.core.composes.SwipeToDeleteContainer
 import com.example.subsense.core.ui.LightColors.destructive
 import com.example.subsense.core.ui.LightColors.warningForeground
+import com.example.subsense.expense.presentation.manager.event.ExpenseEvent
 import com.example.subsense.expense.presentation.manager.view_model.ExpenseViewModel
 
 
@@ -29,6 +31,7 @@ fun HomeScreenBody(
     innerPadding: PaddingValues
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val event = viewModel::onEvent
 
     LazyColumn(
         modifier = Modifier
@@ -39,7 +42,7 @@ fun HomeScreenBody(
 
         ) {
         item {
-            SummaryCard()
+            SummaryCard(state.totalSpend)
 
         }
         item {
@@ -67,7 +70,12 @@ fun HomeScreenBody(
         }
 
         items(state.expenses, key = { it.id }) { expense ->
-            ExpenseCard(expense)
+            SwipeToDeleteContainer(
+                item = expense,
+                onDelete = { event(ExpenseEvent.DeleteExpense(expense)) }
+            ) { expense ->
+                ExpenseCard(expense)
+            }
         }
     }
 

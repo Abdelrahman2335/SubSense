@@ -1,6 +1,5 @@
 package com.example.subsense.manage_expences.presentation.manager.event
 
-import com.example.subsense.core.model.Expense
 import com.example.subsense.core.model.ExpenseCategory
 import com.example.subsense.setting.data.model.Frequency
 
@@ -12,6 +11,5 @@ sealed interface ManageExpenseEvent {
     data class SetRecurring(val recurring: Boolean) : ManageExpenseEvent
     data class SetFrequency(val frequency: Frequency) : ManageExpenseEvent
     data class SetInterval(val interval: String) : ManageExpenseEvent
-    data class DeleteExpense(val expense: Expense) : ManageExpenseEvent
     data object SaveExpense : ManageExpenseEvent
 }

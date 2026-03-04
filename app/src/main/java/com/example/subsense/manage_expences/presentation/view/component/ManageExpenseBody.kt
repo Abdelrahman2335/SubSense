@@ -3,10 +3,12 @@ package com.example.subsense.manage_expences.presentation.view.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -40,12 +42,15 @@ fun ManageExpenseBody(
         item {
             CustomField(
                 head = "Amount",
-                placeholder = "0.00",
+                placeholder = "Enter Amount",
                 onValueChange = { input ->
                     viewModel.onEvent(ManageExpenseEvent.SetAmountInput(input))
                 },
                 value = state.expense.amount?.toString() ?: "",
-                errorMessage = state.amountError
+                errorMessage = state.amountError,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Decimal
+                )
             )
         }
 

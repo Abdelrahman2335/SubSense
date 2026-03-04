@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AttachMoney
 import androidx.compose.material.icons.outlined.Edit
@@ -30,7 +31,8 @@ fun CustomField(
     onValueChange: (String) -> Unit,
     value: String,
     errorMessage: String?,
-    enableLeadingIcon: Boolean = true
+    enableLeadingIcon: Boolean = true,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
     Card(
         modifier = Modifier
@@ -82,7 +84,8 @@ fun CustomField(
                         )
                     }
                 },
-                singleLine = true
+                singleLine = true,
+                keyboardOptions = keyboardOptions
             )
             if (errorMessage != null) {
                 Text(

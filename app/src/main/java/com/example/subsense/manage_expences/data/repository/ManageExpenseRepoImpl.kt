@@ -1,7 +1,7 @@
 package com.example.subsense.manage_expences.data.repository
 
 import com.example.subsense.core.model.Expense
-import com.example.subsense.manage_expences.data.dao.ManageExpensesDao
+import com.example.subsense.manage_expences.data.local.dao.ManageExpensesDao
 import javax.inject.Inject
 
 class ManageExpenseRepoImpl @Inject constructor(
@@ -11,7 +11,5 @@ class ManageExpenseRepoImpl @Inject constructor(
         dao.upSertExpense(expense)
     }
 
-    override suspend fun deleteExpense(expense: Expense) {
-        dao.deleteExpense(expense)
-    }
+
 }

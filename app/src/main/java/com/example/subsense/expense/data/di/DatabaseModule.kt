@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.subsense.expense.data.local.ExpensesDatabase
 import com.example.subsense.expense.data.local.dao.ExpenseDao
-import com.example.subsense.manage_expences.data.dao.ManageExpensesDao
+import com.example.subsense.manage_expences.data.local.dao.ManageExpensesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +26,8 @@ object DatabaseModule {
             context,
             ExpensesDatabase::class.java,
             "expenses_db"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

@@ -77,9 +77,7 @@ class ManageExpenseViewModel @Inject constructor(
                             isRecurring = event.recurring,
                             recurringPattern = RecurringPattern(
                                 frequency = Frequency.Daily,
-                                interval = 1,
-
-                                )
+                            )
                         )
                     )
                 }
@@ -106,9 +104,8 @@ class ManageExpenseViewModel @Inject constructor(
                 Log.d(TAG, "📍 Event: SetInterval | interval=${event.interval}")
                 val parsedInterval = event.interval.toIntOrNull()
 
-                if (parsedInterval == null) {
+                if (event.interval.contains(".")) {
                     Log.w(TAG, "❌ Invalid interval: ${event.interval}")
-                    _state.update { it.copy(intervalError = "Interval must be at least 1") }
                     return
                 }
 
@@ -129,10 +126,6 @@ class ManageExpenseViewModel @Inject constructor(
                 saveExpense()
             }
 
-            is ManageExpenseEvent.DeleteExpense -> {
-                deleteExpense(event.expense)
-            }
-
 
         }
     }
@@ -141,29 +134,22 @@ class ManageExpenseViewModel @Inject constructor(
         Log.d(TAG, "📍 Event: SetAmountInput | raw input='$input'")
 
         try {
-            // Parse the input string to Double
-            val amount = if (input.isEmpty() || input.isBlank()) {
-                Log.d(TAG, "⚠️ Amount input is empty, setting to null")
-                null
-            } else {
-                val parsedAmount = input.toDoubleOrNull()
-                if (parsedAmount == null) {
-                    Log.w(TAG, "⚠️ Failed to parse amount: '$input' is not a valid number")
-                    // Keep current amount, don't update
-                    return
-                }
-                Log.d(TAG, "✅ Amount parsed successfully: $parsedAmount")
-                parsedAmount
+
+            val parsedAmount = input.toIntOrNull()
+
+            if (input.contains(Regex("[.,+/-]+$"))) {
+                Log.w(TAG, "❌ Invalid input: $input")
+                return
             }
 
             val oldAmount = _state.value.expense.amount
             _state.update {
                 it.copy(
-                    expense = it.expense.copy(amount = amount),
+                    expense = it.expense.copy(amount = parsedAmount),
                     amountError = null
                 )
             }
-            Log.d(TAG, "✅ State Updated: amount changed from $oldAmount to $amount")
+            Log.d(TAG, "✅ State Updated: amount changed from $oldAmount to $parsedAmount")
 
         } catch (e: Exception) {
             Log.e(TAG, "❌ Unexpected error parsing amount: '$input'", e)
@@ -180,12 +166,12 @@ class ManageExpenseViewModel @Inject constructor(
         )
 
         // Validate expense data
-        val validationError = validateExpense(expense)
+        val validationError = validateExpense(expense)?.lowercase()
         if (validationError != null) {
             Log.e(TAG, "❌ Validation Failed: $validationError")
 
 
-            if (validationError.contains("Amount")) {
+            if (validationError.contains("amount")) {
                 _state.update { it.copy(amountError = validationError, intervalError = null) }
                 return
             }
@@ -231,21 +217,13 @@ class ManageExpenseViewModel @Inject constructor(
             return "Valid date is required"
         }
 
+        if (expense.isRecurring && expense.recurringPattern != null) {
+            if (expense.recurringPattern.interval == null || expense.recurringPattern.interval <= 0) {
+                return "Interval must be at least 1"
+            }
+        }
         // All validations passed
         return null
     }
-
-    private fun deleteExpense(expense: Expense) {
-        Log.d(TAG, "📍 Event: DeleteExpense | id=${expense.id}")
-        viewModelScope.launch {
-            try {
-                Log.d(TAG, "🗑️ Deleting expense from database...")
-                repository.deleteExpense(expense)
-                Log.d(TAG, "✅ Expense deleted successfully | id=${expense.id}")
-            } catch (e: Exception) {
-                Log.e(TAG, "❌ Failed to delete expense | id=${expense.id}", e)
-                _state.update { it.copy(amountError = "Failed to delete expense") }
-            }
-        }
-    }
+    
 }

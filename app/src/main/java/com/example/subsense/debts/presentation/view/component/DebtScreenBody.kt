@@ -18,8 +18,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.subsense.core.composes.SwipeToDeleteContainer
 import com.example.subsense.core.ui.LightColors.accent
 import com.example.subsense.core.ui.LightColors.destructive
+import com.example.subsense.debts.presentation.manager.event.DebtEvent
 import com.example.subsense.debts.presentation.manager.view_model.DebtViewModel
 
 @Composable
@@ -29,7 +31,7 @@ fun DebtScreenBody(
 ) {
 
     val state by viewModel.state.collectAsStateWithLifecycle()
-
+    val event = viewModel::onEvent
     LazyColumn(
         Modifier
             .fillMaxSize()
@@ -43,13 +45,15 @@ fun DebtScreenBody(
                 "Money You Lent",
                 Icons.AutoMirrored.Filled.TrendingUp,
                 accent,
-                state.totalLent
+                state.totalLent,
+                state.totalLentPending
             )
             SummaryCard(
                 "Money You Borrowed",
                 Icons.AutoMirrored.Filled.TrendingDown,
                 destructive,
-                state.totalBorrowed
+                state.totalBorrow,
+                state.totalBorrowPending
             )
         }
         item {
@@ -60,7 +64,13 @@ fun DebtScreenBody(
                 modifier = Modifier.padding(vertical = 16.dp, horizontal = 3.dp)
             )
         }
-        items(state.moneyLent) { DebtItem(it) }
+        items(state.moneyLent) { debt ->
+
+            SwipeToDeleteContainer(debt, { event(DebtEvent.DeleteDebt(debt)) }) {
+
+                DebtItem(it)
+            }
+        }
         item {
             Text(
                 "Money Borrowed", style = MaterialTheme.typography.titleMedium,
@@ -70,8 +80,13 @@ fun DebtScreenBody(
             )
             // List of debits
         }
-        items(state.moneyBorrow) { DebtItem(it) }
+        items(state.moneyBorrow) { debt ->
 
+            SwipeToDeleteContainer(debt, { event(DebtEvent.DeleteDebt(debt)) }) {
 
+                DebtItem(it)
+            }
+
+        }
     }
 }

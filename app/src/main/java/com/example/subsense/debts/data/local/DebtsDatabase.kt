@@ -10,7 +10,7 @@ import com.example.subsense.manage_debts.data.dao.ManageDebtsDao
 
 @Database(
     entities = [DebtModel::class],
-    version = 1,
+    version = 2,
 )
 @TypeConverters(DebtConverters::class)
 abstract class DebtsDatabase : RoomDatabase() {

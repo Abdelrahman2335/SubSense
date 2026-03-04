@@ -1,7 +1,6 @@
-package com.example.subsense.manage_expences.data.dao
+package com.example.subsense.manage_expences.data.local.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Upsert
 import com.example.subsense.core.model.Expense
 
@@ -10,6 +9,4 @@ interface ManageExpensesDao {
     @Upsert
     suspend fun upSertExpense(expense: Expense)
 
-    @Delete
-    suspend fun deleteExpense(expense: Expense)
 }

@@ -3,6 +3,7 @@ package com.example.subsense.debts.presentation.manager.view_model
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.subsense.debts.data.model.DebtStatus
 import com.example.subsense.debts.data.repository.DebtRepo
 import com.example.subsense.debts.presentation.manager.event.DebtEvent
 import com.example.subsense.debts.presentation.manager.state.DebtState
@@ -36,9 +37,17 @@ class DebtViewModel @Inject constructor(
             Log.d(TAG, "getMoneyLent: fetching money lent")
             _state.update { it.copy(isLoading = true) }
             repository.getMoneyLent().collect { lent ->
-                val total = lent.sumOf { it.amount ?: 0.0 }
+                val total = lent.sumOf { it.amount ?: 0 }
+                val totalPending = lent.count { it.status == DebtStatus.Pending }
                 Log.d(TAG, "getMoneyLent: received ${lent.size} items, total = $total")
-                _state.update { it.copy(moneyLent = lent, totalLent = total, isLoading = false) }
+                _state.update {
+                    it.copy(
+                        moneyLent = lent,
+                        totalLent = total,
+                        totalLentPending = totalPending,
+                        isLoading = false
+                    )
+                }
             }
         }
     }
@@ -48,10 +57,17 @@ class DebtViewModel @Inject constructor(
             Log.d(TAG, "getMoneyBorrowed: fetching money borrowed")
             _state.update { it.copy(isLoading = true) }
             repository.getMoneyBorrowed().collect { borrow ->
-                val total = borrow.sumOf { it.amount ?: 0.0 }
+                val total = borrow.sumOf { it.amount ?: 0 }
+                val totalPending = borrow.count { it.status == DebtStatus.Pending }
+
                 Log.d(TAG, "getMoneyBorrowed: received ${borrow.size} items, total = $total")
                 _state.update {
-                    it.copy(moneyBorrow = borrow, totalBorrowed = total, isLoading = false)
+                    it.copy(
+                        moneyBorrow = borrow,
+                        totalBorrow = total,
+                        totalBorrowPending = totalPending,
+                        isLoading = false
+                    )
                 }
             }
         }
@@ -72,6 +88,7 @@ class DebtViewModel @Inject constructor(
                 viewModelScope.launch {
                     repository.deleteDebt(event.debt)
                 }
+
             }
         }
     }

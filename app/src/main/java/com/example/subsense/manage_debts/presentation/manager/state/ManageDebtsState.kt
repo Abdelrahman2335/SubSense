@@ -9,7 +9,7 @@ data class ManageDebtsState(
         id = 0,
         debtType = DebtType.LENT,
         name = "",
-        amount = 0.0,
+        amount = null,
         dueDate = System.currentTimeMillis(),
         note = "",
         status = DebtStatus.Pending

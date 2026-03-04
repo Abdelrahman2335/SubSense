@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ExpenseRepo {
     fun getAllExpenses(): Flow<List<Expense>>
+    suspend fun deleteExpense(expense: Expense)
 }

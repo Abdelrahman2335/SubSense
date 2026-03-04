@@ -29,7 +29,8 @@ fun SummaryCard(
     title: String,
     icon: ImageVector,
     color: Color,
-    amount: Double
+    amount: Int,
+    pending: Int,
 ) {
 
     val formattedAmount = amount.formatCurrency()
@@ -65,7 +66,7 @@ fun SummaryCard(
                 color = color
             )
             Text(
-                "2 pending",
+                "$pending pending",
                 style = MaterialTheme.typography.bodyLarge,
                 color = mutedForeground
             )

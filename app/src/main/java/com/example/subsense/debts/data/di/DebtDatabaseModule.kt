@@ -26,7 +26,9 @@ object DebtDatabaseModule {
             context,
             DebtsDatabase::class.java,
             "debts_db"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
