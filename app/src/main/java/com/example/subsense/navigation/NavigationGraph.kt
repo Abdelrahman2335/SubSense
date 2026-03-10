@@ -37,11 +37,8 @@ data class EditExpenseScreen(val id: String) // will be removed later
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
-
     modifier: Modifier
 ) {
-
-    val navController = navController
 
     NavHost(
         navController = navController,

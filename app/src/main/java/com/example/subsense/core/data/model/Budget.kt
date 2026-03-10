@@ -9,6 +9,4 @@ data class Budget(
     @PrimaryKey
     val categoryId: String,
     val limitAmount: Int,
-    val month: Int, // 1-12
-    val year: Int
 )

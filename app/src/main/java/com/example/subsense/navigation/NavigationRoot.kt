@@ -32,12 +32,8 @@ fun NavigationRoot(
                 NavigationBarItem(
                     selected = currentRoute?.contains(EXPENSE_SCREEN) == true,
                     onClick = {
-                        navController.navigate(ExpenseScreen) {
+                        navController.navigateToTab(ExpenseScreen)
 
-                            popUpTo(ExpenseScreen) { inclusive = false }
-                            launchSingleTop = true
-
-                        }
                     },
                     icon = { Icon(Icons.Default.AccountBalanceWallet, contentDescription = null) },
                     label = { Text("Expenses") }
@@ -45,12 +41,8 @@ fun NavigationRoot(
                 NavigationBarItem(
                     selected = currentRoute?.contains(DEBT_SCREEN) == true,
                     onClick = {
-                        navController.navigate(DebtScreen) {
 
-                            popUpTo(ExpenseScreen) { inclusive = false }
-                            launchSingleTop = true
-
-                        }
+                        navController.navigateToTab(DebtScreen)
                     },
                     icon = { Icon(Icons.Default.Handshake, contentDescription = null) },
                     label = { Text("Debt") }
@@ -58,12 +50,9 @@ fun NavigationRoot(
                 NavigationBarItem(
                     selected = currentRoute?.contains(SETTING_SCREEN) == true,
                     onClick = {
-                        navController.navigate(SettingScreen) {
+                     
+                        navController.navigateToTab(SettingScreen)
 
-                            popUpTo(SettingScreen) { inclusive = false }
-                            launchSingleTop = true
-
-                        }
                     },
                     icon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
                     label = { Text("Settings") }

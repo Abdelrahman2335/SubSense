@@ -3,7 +3,6 @@ package com.example.subsense.setting.presentation.view.screen
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.subsense.core.composes.CustomTopBar
 import com.example.subsense.core.ui.Constraints.TITLE_SETTINGS
 import com.example.subsense.setting.presentation.view.component.SettingScreenBody
@@ -20,12 +19,6 @@ fun SettingScreen() {
 
         }
     ) {
-        SettingScreenBody(it)
+        SettingScreenBody(innerPadding = it)
     }
-}
-
-@Preview
-@Composable
-fun SettingScreenPreview(){
-    SettingScreen()
 }

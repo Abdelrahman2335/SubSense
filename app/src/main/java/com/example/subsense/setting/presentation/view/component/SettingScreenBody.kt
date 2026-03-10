@@ -19,17 +19,25 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.subsense.core.composes.CustomButton
-import com.example.subsense.core.data.model.ExpenseCategory
 import com.example.subsense.core.ui.LightColors.mutedForeground
+import com.example.subsense.setting.presentation.manager.view_model.SettingViewModel
 
 @Composable
-fun SettingScreenBody(innerPadding: PaddingValues) {
-    val categories = ExpenseCategory.getAllCategories()
+fun SettingScreenBody(
+    viewModel: SettingViewModel = hiltViewModel<SettingViewModel>(),
+    innerPadding: PaddingValues
+) {
+
+
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     LazyColumn(
         Modifier
@@ -62,9 +70,13 @@ fun SettingScreenBody(innerPadding: PaddingValues) {
 
         }
 
-        items(categories) { category ->
+        items(state.budgetCategories) { category ->
 
-            BudgetCard(category)
+            BudgetCard(
+                category,
+                state.budgetValues.first { it.categoryId == category.id },
+                viewModel::onEvent
+            )
             Box(
                 modifier = Modifier
                     .fillMaxWidth()

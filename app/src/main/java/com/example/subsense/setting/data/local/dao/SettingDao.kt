@@ -4,14 +4,18 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
 import com.example.subsense.core.data.model.Budget
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SettingDao {
 
     @Query("SELECT * FROM budget")
-    fun getBudgets(): List<Budget>
+    fun getBudgets(): Flow<List<Budget>>
 
     @Upsert
-    fun upsertBudget(budget: Budget)
+    suspend fun upsertBudget(budget: Budget)
+
+    @Upsert
+    suspend fun upsertBudgets(budgets: List<Budget>)
 
 }

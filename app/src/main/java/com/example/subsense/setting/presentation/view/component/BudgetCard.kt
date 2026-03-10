@@ -20,10 +20,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,16 +27,20 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.subsense.core.data.model.Budget
 import com.example.subsense.core.data.model.ExpenseCategory
+import com.example.subsense.setting.presentation.manager.event.SettingEvent
 
 
 @Composable
 fun BudgetCard(
 
-    category: ExpenseCategory
+    category: ExpenseCategory,
+    budgetValue: Budget,
+    event: (SettingEvent) -> Unit
 ) {
 
-    var textValue by remember { mutableStateOf("") }
+
     val focusManager = LocalFocusManager.current
 
     Row(
@@ -63,12 +63,25 @@ fun BudgetCard(
         Text(category.displayName, modifier = Modifier.weight(1f))
         OutlinedTextField(
 
-            value = textValue,
-            onValueChange = { textValue = it },
+            value = budgetValue.limitAmount.toString(),
+            onValueChange = {
+                val amount = it.toIntOrNull()
+                if (amount != null) {
+                    event(
+                        SettingEvent.UpsertBudget(
+                            Budget(
+                                categoryId = category.id,
+                                limitAmount = amount
+                            )
+                        )
+                    )
+                }
+
+            },
             shape = RoundedCornerShape(21.dp),
             singleLine = true,
             modifier = Modifier
-                .width(100.dp)
+                .width(120.dp)
                 .height(60.dp),
             textStyle = LocalTextStyle.current.copy(
                 color = MaterialTheme.colorScheme.onSurface
