@@ -1,9 +1,11 @@
 package com.example.subsense.setting.presentation.manager.view_model
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.subsense.core.data.model.Budget
 import com.example.subsense.core.data.model.ExpenseCategory
+import com.example.subsense.setting.data.model.Notification
 import com.example.subsense.setting.data.repository.SettingRepo
 import com.example.subsense.setting.presentation.manager.event.SettingEvent
 import com.example.subsense.setting.presentation.manager.state.SettingState
@@ -24,6 +26,14 @@ class SettingViewModel @Inject constructor(
 
     init {
         initBudgetCategories()
+        initNotifications()
+    }
+
+    companion object {
+        private const val TAG = "SettingViewModel"
+
+        private const val BUDGET_NOTIFICATION = "budgetNotification"
+        private const val DAILY_NOTIFICATION = "dailyNotification"
     }
 
     fun onEvent(event: SettingEvent) {
@@ -31,6 +41,17 @@ class SettingViewModel @Inject constructor(
             is SettingEvent.UpsertBudget -> {
                 viewModelScope.launch {
                     repository.upsertBudget(event.budget)
+                }
+            }
+
+            is SettingEvent.UpdateNotification -> {
+                viewModelScope.launch {
+                    Log.d(
+                        TAG,
+                        "New notification: ${event.notification.notificationType}, status is ${event.notification.isEnabled}"
+                    )
+                    // Write to DB; state will be refreshed by initNotifications() collector.
+                    repository.upsertNotification(event.notification)
                 }
             }
         }
@@ -70,6 +91,35 @@ class SettingViewModel @Inject constructor(
                 }
             }
 
+        }
+    }
+
+    private fun initNotifications() {
+        viewModelScope.launch {
+            repository.getNotifications().collect { notifications ->
+                // Seed defaults once (only if missing)
+                if (notifications.none { it.notificationType == BUDGET_NOTIFICATION }) {
+                    repository.upsertNotification(
+                        Notification(notificationType = BUDGET_NOTIFICATION, isEnabled = false)
+                    )
+                }
+                if (notifications.none { it.notificationType == DAILY_NOTIFICATION }) {
+                    repository.upsertNotification(
+                        Notification(notificationType = DAILY_NOTIFICATION, isEnabled = false)
+                    )
+                }
+
+                val budget =
+                    notifications.firstOrNull { it.notificationType == BUDGET_NOTIFICATION }
+                val daily = notifications.firstOrNull { it.notificationType == DAILY_NOTIFICATION }
+
+                _state.update { state ->
+                    state.copy(
+                        budgetNotification = budget ?: state.budgetNotification,
+                        dailyNotification = daily ?: state.dailyNotification,
+                    )
+                }
+            }
         }
     }
 }

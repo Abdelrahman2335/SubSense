@@ -26,8 +26,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.subsense.core.composes.CustomButton
 import com.example.subsense.core.ui.LightColors.mutedForeground
+import com.example.subsense.setting.presentation.manager.event.SettingEvent
 import com.example.subsense.setting.presentation.manager.view_model.SettingViewModel
 
 @Composable
@@ -85,14 +85,7 @@ fun SettingScreenBody(
                     .background(mutedForeground.copy(alpha = 0.3f))
             )
         }
-        item {
-            CustomButton(
-                Modifier.padding(vertical = 16.dp),
-                onClick = {
 
-                },
-            )
-        }
         item {
 
             Row(
@@ -118,9 +111,12 @@ fun SettingScreenBody(
             CustomAlert(
                 "Budget Alerts",
                 "Get notified when approaching limits",
-                true,
-                {},
-            )
+                state.budgetNotification.isEnabled,
+            ) {
+                viewModel.onEvent(
+                    SettingEvent.UpdateNotification(state.budgetNotification.copy(isEnabled = !state.budgetNotification.isEnabled))
+                )
+            }
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -131,9 +127,12 @@ fun SettingScreenBody(
             CustomAlert(
                 "Daily Reminders",
                 "Remind to log expenses",
-                false,
-                {},
-            )
+                state.dailyNotification.isEnabled,
+            ) {
+                viewModel.onEvent(
+                    SettingEvent.UpdateNotification(state.dailyNotification.copy(isEnabled = !state.dailyNotification.isEnabled))
+                )
+            }
 
         }
 
