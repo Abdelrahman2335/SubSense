@@ -1,12 +1,12 @@
-package com.example.subsense.setting.data.model
+package com.example.subsense.core.notification.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "Notification")
+@Entity(tableName = "notification")
 data class Notification(
     @PrimaryKey
-    val notificationType: String,
+    val notificationType: NotificationType,
     val isEnabled: Boolean
 )

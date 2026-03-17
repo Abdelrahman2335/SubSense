@@ -5,7 +5,7 @@ import androidx.room.Query
 import androidx.room.Update
 import androidx.room.Upsert
 import com.example.subsense.core.data.model.Budget
-import com.example.subsense.setting.data.model.Notification
+import com.example.subsense.core.notification.model.Notification
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -14,10 +14,9 @@ interface SettingDao {
     @Query("SELECT * FROM budget")
     fun getBudgets(): Flow<List<Budget>>
 
-    @Query("SELECT * FROM Notification")
+    @Query("SELECT * FROM notification")
     fun getNotifications(): Flow<List<Notification>>
 
-    // Needed to seed + update notification rows (daily/budget)
     @Upsert
     suspend fun upsertNotification(notification: Notification)
 

@@ -1,11 +1,14 @@
 package com.example.subsense.setting.presentation.manager.view_model
 
 import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.subsense.core.data.model.Budget
 import com.example.subsense.core.data.model.ExpenseCategory
-import com.example.subsense.setting.data.model.Notification
+import com.example.subsense.core.notification.model.Notification
+import com.example.subsense.core.notification.model.NotificationType
 import com.example.subsense.setting.data.repository.SettingRepo
 import com.example.subsense.setting.presentation.manager.event.SettingEvent
 import com.example.subsense.setting.presentation.manager.state.SettingState
@@ -20,6 +23,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val repository: SettingRepo,
+    private val notificationBuilder: NotificationCompat.Builder,
+    private val notificationManager: NotificationManagerCompat
 ) : ViewModel() {
     private val _state = MutableStateFlow(SettingState())
     val state: StateFlow<SettingState> = _state.asStateFlow()
@@ -31,9 +36,6 @@ class SettingViewModel @Inject constructor(
 
     companion object {
         private const val TAG = "SettingViewModel"
-
-        private const val BUDGET_NOTIFICATION = "budgetNotification"
-        private const val DAILY_NOTIFICATION = "dailyNotification"
     }
 
     fun onEvent(event: SettingEvent) {
@@ -97,21 +99,22 @@ class SettingViewModel @Inject constructor(
     private fun initNotifications() {
         viewModelScope.launch {
             repository.getNotifications().collect { notifications ->
-                // Seed defaults once (only if missing)
-                if (notifications.none { it.notificationType == BUDGET_NOTIFICATION }) {
+
+                if (notifications.none { it.notificationType == NotificationType.BUDGET }) {
                     repository.upsertNotification(
-                        Notification(notificationType = BUDGET_NOTIFICATION, isEnabled = false)
+                        Notification(notificationType = NotificationType.BUDGET, isEnabled = false)
                     )
                 }
-                if (notifications.none { it.notificationType == DAILY_NOTIFICATION }) {
+                if (notifications.none { it.notificationType == NotificationType.DAILY }) {
                     repository.upsertNotification(
-                        Notification(notificationType = DAILY_NOTIFICATION, isEnabled = false)
+                        Notification(notificationType = NotificationType.DAILY, isEnabled = false)
                     )
                 }
 
                 val budget =
-                    notifications.firstOrNull { it.notificationType == BUDGET_NOTIFICATION }
-                val daily = notifications.firstOrNull { it.notificationType == DAILY_NOTIFICATION }
+                    notifications.firstOrNull { it.notificationType == NotificationType.BUDGET }
+                val daily =
+                    notifications.firstOrNull { it.notificationType == NotificationType.DAILY }
 
                 _state.update { state ->
                     state.copy(

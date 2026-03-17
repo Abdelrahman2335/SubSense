@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExpenseViewModel @Inject constructor(
-    private val repository: ExpenseRepo
+    private val repository: ExpenseRepo,
 ) : ViewModel() {
 
 

@@ -1,8 +1,8 @@
 package com.example.subsense.setting.data.repository
 
 import com.example.subsense.core.data.model.Budget
+import com.example.subsense.core.notification.model.Notification
 import com.example.subsense.setting.data.local.dao.SettingDao
-import com.example.subsense.setting.data.model.Notification
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

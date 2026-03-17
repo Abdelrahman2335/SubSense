@@ -1,7 +1,7 @@
 package com.example.subsense.setting.data.repository
 
 import com.example.subsense.core.data.model.Budget
-import com.example.subsense.setting.data.model.Notification
+import com.example.subsense.core.notification.model.Notification
 import kotlinx.coroutines.flow.Flow
 
 interface SettingRepo {

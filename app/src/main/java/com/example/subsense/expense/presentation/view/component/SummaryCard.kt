@@ -25,7 +25,7 @@ import com.example.subsense.core.util.formatCurrency
 
 @Composable
 fun SummaryCard(
-    totalSpent: Int
+    totalSpent: Int,
 ) {
     val amount2 = 1500 // dummy
 
