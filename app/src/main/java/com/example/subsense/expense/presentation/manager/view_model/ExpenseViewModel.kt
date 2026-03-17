@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.subsense.core.data.model.Expense
+import com.example.subsense.core.notification.manager.NotificationManager
+import com.example.subsense.core.notification.model.NotificationType
 import com.example.subsense.expense.data.repository.ExpenseRepo
 import com.example.subsense.expense.presentation.manager.event.ExpenseEvent
 import com.example.subsense.expense.presentation.manager.state.ExpenseState
@@ -18,6 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ExpenseViewModel @Inject constructor(
     private val repository: ExpenseRepo,
+    private val notificationManager: NotificationManager
+
 ) : ViewModel() {
 
 
@@ -39,6 +43,15 @@ class ExpenseViewModel @Inject constructor(
         when (event) {
             is ExpenseEvent.DeleteExpense -> {
                 deleteExpense(event.expense)
+            }
+
+            ExpenseEvent.testNotification -> {
+                Log.d("NotificationTest", "Showing notification")
+                notificationManager.showNotification(
+                    title = NotificationType.DAILY.displayName,
+                    message = "Don't forget to add your expenses",
+                    notificationType = NotificationType.DAILY
+                )
             }
         }
     }

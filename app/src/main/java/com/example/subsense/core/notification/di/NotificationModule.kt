@@ -4,8 +4,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import androidx.core.R.drawable
-import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.subsense.core.notification.model.NotificationType
 import dagger.Module
@@ -19,18 +17,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NotificationModule {
-
-    @Provides
-    @Singleton
-    fun provideNotificationBuilder(
-        @ApplicationContext context: Context
-    ): NotificationCompat.Builder {
-        return NotificationCompat.Builder(context, NotificationType.DAILY.name)
-            .setContentTitle("SubSense")
-            .setContentText("This is a text notification")
-            .setSmallIcon(drawable.notification_icon_background)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-    }
 
     @Provides
     @Singleton

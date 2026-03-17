@@ -1,7 +1,6 @@
 package com.example.subsense.setting.presentation.manager.view_model
 
 import android.util.Log
-import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +22,6 @@ import javax.inject.Inject
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val repository: SettingRepo,
-    private val notificationBuilder: NotificationCompat.Builder,
     private val notificationManager: NotificationManagerCompat
 ) : ViewModel() {
     private val _state = MutableStateFlow(SettingState())

@@ -4,4 +4,5 @@ import com.example.subsense.core.data.model.Expense
 
 sealed interface ExpenseEvent {
     data class DeleteExpense(val expense: Expense) : ExpenseEvent
+    object testNotification : ExpenseEvent
 }

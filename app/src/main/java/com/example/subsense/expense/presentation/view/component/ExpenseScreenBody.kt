@@ -42,7 +42,7 @@ fun HomeScreenBody(
 
         ) {
         item {
-            SummaryCard(state.totalSpend)
+            SummaryCard(state.totalSpend, event)
 
         }
         item {
