@@ -50,6 +50,7 @@ kotlin {
     }
 }
 dependencies {
+    implementation(libs.androidx.work.runtime)
     implementation(libs.hilt.android)
     implementation(libs.places)
     ksp(libs.hilt.compiler)

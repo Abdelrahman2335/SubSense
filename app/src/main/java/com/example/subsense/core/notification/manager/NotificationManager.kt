@@ -1,8 +1,10 @@
 package com.example.subsense.core.notification.manager
 
+import android.Manifest
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.subsense.MainActivity
@@ -14,9 +16,10 @@ import javax.inject.Singleton
 
 @Singleton
 class NotificationManager @Inject constructor(
-    @ApplicationContext private val context: Context,
+    @field:ApplicationContext private val context: Context,
     private val notificationManagerCompat: NotificationManagerCompat
 ) {
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     fun showNotification(
         title: String,
         message: String,

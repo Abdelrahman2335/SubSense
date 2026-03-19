@@ -3,7 +3,6 @@ package com.example.subsense.core.notification.di
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.os.Build
 import androidx.core.app.NotificationManagerCompat
 import com.example.subsense.core.notification.model.NotificationType
 import dagger.Module
@@ -25,16 +24,20 @@ object NotificationModule {
     ): NotificationManagerCompat {
         val notificationManager = NotificationManagerCompat.from(context)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                NotificationType.DAILY.name,
-                "Main Channel",
-                NotificationManager.IMPORTANCE_HIGH
+        NotificationType.entries.forEach { type ->
+            val importance = when (type) {
+                NotificationType.BUDGET -> NotificationManager.IMPORTANCE_HIGH
+                NotificationType.DAILY -> NotificationManager.IMPORTANCE_DEFAULT
+            }
 
+            val channel = NotificationChannel(
+                type.name,
+                type.displayName,
+                importance
             )
             notificationManager.createNotificationChannel(channel)
-
         }
+
         return notificationManager
     }
 }

@@ -9,6 +9,8 @@ data class SettingState(
     val budgetCategories: List<ExpenseCategory> = emptyList(),
     val budgetValues: List<Budget> = emptyList(),
     val isLoading: Boolean = false,
+    val notificationPermissionRequest: Boolean = false,
+
     val budgetNotification: Notification = Notification(
         notificationType = NotificationType.BUDGET,
         isEnabled = false
@@ -16,5 +18,5 @@ data class SettingState(
     val dailyNotification: Notification = Notification(
         notificationType = NotificationType.DAILY,
         isEnabled = false
-    )
+    ),
 )

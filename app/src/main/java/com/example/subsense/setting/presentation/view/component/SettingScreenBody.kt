@@ -1,5 +1,10 @@
 package com.example.subsense.setting.presentation.view.component
 
+import android.Manifest
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,6 +36,7 @@ import com.example.subsense.core.ui.LightColors.mutedForeground
 import com.example.subsense.setting.presentation.manager.event.SettingEvent
 import com.example.subsense.setting.presentation.manager.view_model.SettingViewModel
 
+@RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun SettingScreenBody(
     viewModel: SettingViewModel = hiltViewModel<SettingViewModel>(),
@@ -38,6 +45,23 @@ fun SettingScreenBody(
 
 
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    // Permission launcher
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        state.notificationPermissionRequest.let {
+            viewModel.onPermissionResult(Manifest.permission.POST_NOTIFICATIONS, isGranted)
+        }
+    }
+
+    // Trigger permission request when ViewModel requests it
+    LaunchedEffect(state.notificationPermissionRequest) {
+        if (state.notificationPermissionRequest) {
+            permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
+    }
+
 
     LazyColumn(
         Modifier
@@ -114,7 +138,11 @@ fun SettingScreenBody(
                 state.budgetNotification.isEnabled,
             ) {
                 viewModel.onEvent(
-                    SettingEvent.UpdateNotification(state.budgetNotification.copy(isEnabled = !state.budgetNotification.isEnabled))
+                    SettingEvent.UpdateNotification(
+                        state.budgetNotification.copy(
+                            isEnabled = !state.budgetNotification.isEnabled
+                        )
+                    )
                 )
             }
             Box(
@@ -129,8 +157,13 @@ fun SettingScreenBody(
                 "Remind to log expenses",
                 state.dailyNotification.isEnabled,
             ) {
+
                 viewModel.onEvent(
-                    SettingEvent.UpdateNotification(state.dailyNotification.copy(isEnabled = !state.dailyNotification.isEnabled))
+                    SettingEvent.UpdateNotification(
+                        state.dailyNotification.copy(
+                            isEnabled = !state.dailyNotification.isEnabled
+                        )
+                    )
                 )
             }
 

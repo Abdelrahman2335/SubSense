@@ -1,7 +1,6 @@
 package com.example.subsense.expense.presentation.view.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,12 +22,10 @@ import androidx.compose.ui.unit.dp
 import com.example.subsense.core.ui.LightColors.accent
 import com.example.subsense.core.ui.LightColors.mutedForeground
 import com.example.subsense.core.util.formatCurrency
-import com.example.subsense.expense.presentation.manager.event.ExpenseEvent
 
 @Composable
 fun SummaryCard(
     totalSpent: Int,
-    event: (ExpenseEvent) -> Unit
 ) {
     val amount2 = 1500 // dummy
 
@@ -43,7 +40,6 @@ fun SummaryCard(
             .shadow(elevation = 9.dp, shape = RoundedCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .clip(RoundedCornerShape(16.dp))
-            .clickable(onClick = { event(ExpenseEvent.testNotification) })
 
     ) {
 
